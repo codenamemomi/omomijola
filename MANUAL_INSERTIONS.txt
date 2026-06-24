@@ -1,0 +1,21 @@
+Manual insertions / updates to make later
+
+1. Social links
+- Replace the placeholder LinkedIn URL in src/data/portfolio.js with your real profile link.
+- If you want different GitHub or email values, update the socialLinks/contactDetails objects there.
+
+2. Contact details
+- Update the phone number, location, and email in src/data/portfolio.js if they change.
+
+3. Project content
+- Review the project titles, descriptions, demo URLs, and GitHub repo URLs in src/data/portfolio.js.
+- Replace any placeholder or outdated links with the current ones.
+
+4. Experience section
+- Update the job role, company, date, location, and bullet points in src/data/portfolio.js if your experience has changed.
+
+5. Images
+- If you want different project screenshots or a new profile image, replace the files in src/assets/ and update the matching imports in src/data/portfolio.js.
+
+6. Optional polish
+- If you want a custom favicon, site title, or metadata, update index.html and the Vite config accordingly.
