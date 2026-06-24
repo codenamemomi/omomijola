@@ -51,7 +51,7 @@ function App() {
       <NavBar navItems={navItems} activeSection={activeSection} onNavigate={scrollTo} />
       <main className="content">
         <HeroSection onNavigate={scrollTo} onContactClick={() => setIsContactOpen(true)} />
-        <AboutSection />
+        <AboutSection onContactClick={() => setIsContactOpen(true)} />
         <ExperienceSection experienceItems={experienceItems} />
         <ProjectsSection projectItems={projectItems} />
         <SkillsSection skills={skills} />
