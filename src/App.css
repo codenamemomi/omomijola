@@ -815,17 +815,77 @@ a {
   transform: translateY(-1px);
 }
 
+.timeline-container {
+  position: relative;
+  padding-left: 44px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(108, 60, 255, 0.2) 0%,
+    rgba(108, 60, 255, 0.05) 100%
+  );
+  z-index: 1;
+}
+
 .timeline {
   display: grid;
-  gap: 24px;
+  gap: 32px;
 }
 
 .timeline-item {
+  position: relative;
   padding: 28px;
   background: rgba(255, 255, 255, 0.94);
   border-radius: 28px;
   border: 1px solid rgba(108, 60, 255, 0.1);
   box-shadow: var(--shadow);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.timeline-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(108, 60, 255, 0.22);
+  box-shadow: 0 20px 40px rgba(108, 60, 255, 0.06);
+}
+
+.timeline-node {
+  position: absolute;
+  left: -45px;
+  top: 34px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid rgba(108, 60, 255, 0.35);
+  display: grid;
+  place-items: center;
+  transition: border-color 0.22s, background 0.22s, box-shadow 0.22s;
+  z-index: 2;
+}
+
+.timeline-node-inner {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.22s;
+}
+
+.timeline-item:hover .timeline-node {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(108, 60, 255, 0.6);
+}
+
+.timeline-item:hover .timeline-node-inner {
+  background: #ffffff;
 }
 
 .timeline-title {
@@ -838,29 +898,76 @@ a {
 
 .timeline-title h3 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-h);
 }
 
-.timeline-title span {
+.company-name {
   color: var(--accent);
   font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
 }
 
 .timeline-meta {
-  margin: 16px 0 20px;
+  margin: 10px 0 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.timeline-bullets {
+  list-style: none;
+  margin: 0 0 24px;
+  padding-left: 0 !important;
   color: var(--muted);
 }
 
-.timeline-item ul,
-.project-card ul {
-  margin: 0;
+.timeline-bullets li {
+  position: relative;
   padding-left: 20px;
-  color: var(--muted);
+  margin-bottom: 12px;
+  font-size: 0.96rem;
+  line-height: 1.55;
 }
 
-.timeline-item li,
-.project-card li {
-  margin-bottom: 12px;
+.timeline-bullets li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  color: var(--accent);
+  font-weight: 700;
+  opacity: 0.7;
+  font-family: monospace;
+  font-size: 0.95rem;
+}
+
+.experience-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px dashed rgba(108, 60, 255, 0.1);
+  padding-top: 20px;
+}
+
+.exp-tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(108, 60, 255, 0.04);
+  border: 1px solid rgba(108, 60, 255, 0.08);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.22s, border-color 0.22s, color 0.22s;
+  cursor: default;
+}
+
+.exp-tag:hover {
+  background: rgba(108, 60, 255, 0.08);
+  border-color: rgba(108, 60, 255, 0.15);
+  color: var(--accent);
 }
 
 .project-grid {
@@ -1357,5 +1464,20 @@ a {
   .skill-grid,
   .timeline {
     gap: 18px;
+  }
+
+  .timeline-container {
+    padding-left: 28px;
+  }
+
+  .timeline-line {
+    left: 8px;
+  }
+
+  .timeline-node {
+    left: -29px;
+    top: 30px;
+    width: 12px;
+    height: 12px;
   }
 }

@@ -29,7 +29,7 @@ export const navItems = [
 export const contactDetails = {
   location: 'Nigeria',
   phone: '+234 901 112 3434',
-  email: 'hello@omomijolaoluwa.dev',
+  email: 'akinrogundej@gmail.com',
 }
 
 export const socialLinks = [
@@ -51,6 +51,7 @@ export const experienceItems = [
       'Built a subscription-based grocery engine supporting automated same-day deliveries at weekly, bi-weekly, or monthly intervals.',
       'Designed the "111 Feature" enabling users to pre-schedule breakfast, lunch, and dinner slots dynamically aligned with vendor closing hours and rider availability.',
     ],
+    tags: ['FastAPI', 'Python', 'Pydantic', 'Logistics Scheduling', 'Multi-vendor Cart'],
   },
   {
     role: 'Full-Stack Developer & DevOps',
@@ -64,6 +65,7 @@ export const experienceItems = [
       'Containerized services with Docker and configured NGINX reverse proxy for secure, scalable deployment.',
       'Implemented Celery and Redis for asynchronous background processing and notifications.',
     ],
+    tags: ['FastAPI', 'JWT', 'Docker', 'NGINX', 'Celery', 'Redis', 'CI/CD'],
   },
   {
     role: 'Backend & Infrastructure Engineer (Contract)',
@@ -76,6 +78,7 @@ export const experienceItems = [
       'Reduced data breach risk through system updates, vulnerability mitigation, and access control.',
       'Supported platform stability and infrastructure troubleshooting alongside technical support teams.',
     ],
+    tags: ['PostgreSQL', 'Database Tuning', 'System Hardening', 'Shell Scripting', 'Security Audit'],
   },
 ]
 
