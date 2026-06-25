@@ -92,6 +92,12 @@ export const projectItems = [
     repoUrl: 'https://github.com/codenamemomi/ree-fond',
     description:
       'A regulatory compliance workflow platform with secure APIs, containerized deployment, and audit-ready access control for multi-entity operations.',
+    details: [
+      'Designed workflow execution pipelines in FastAPI ensuring audit-logged transaction states.',
+      'Containerized applications using Docker and orchestrated development-to-production staging environments.',
+      'Optimized SQL queries in PostgreSQL and defined strict relational model schemas.',
+      'Secured user endpoints with robust JWT authorization and role-based access control (RBAC).'
+    ]
   },
   {
     title: 'Backend Battle',
@@ -102,6 +108,12 @@ export const projectItems = [
     repoUrl: 'https://github.com/codenamemomi/Backend_Battle',
     description:
       'An async benchmarking engine that simulates concurrent API load, scores endpoint latency, and exposes performance insights through REST APIs.',
+    details: [
+      'Architected concurrent load generators utilizing HTTPX async calls to benchmark target endpoints.',
+      'Exposed real-time latency profiles and transaction scores via REST APIs.',
+      'Built async queue routines for processing batch benchmarks without blocking the event loop.',
+      'Designed lightweight telemetry dashboards showing p50, p90, and p99 response distribution.'
+    ]
   },
   {
     title: 'Outbound AI Calling Agent',
@@ -112,6 +124,12 @@ export const projectItems = [
     repoUrl: 'https://github.com/codenamemomi/Outbound-AI-Backend',
     description:
       'An outbound call automation platform with session orchestration, managed workflows, and subscription-based billing support.',
+    details: [
+      'Created media stream socket handlers in FastAPI for real-time bidirectional audio streaming.',
+      'Engineered call state machines and transactional locks to prevent double-billing during calls.',
+      'Structured system event webhooks notifying users of successful/failed call outcomes.',
+      'Implemented stripe-based subscription billing flow and secure API keys authorization.'
+    ]
   },
   {
     title: 'KANEC Impact',
@@ -122,6 +140,12 @@ export const projectItems = [
     repoUrl: 'https://github.com/codenamemomi/KANEC_IMPACT',
     description:
       'A blockchain compliance system using Hedera for immutable transaction records, analytics, and secure audit trails.',
+    details: [
+      'Built transactions logging engine writing compliance metadata to Hedera blockchain ledger.',
+      'Formulated API data structures ensuring immutable hashing of audited records.',
+      'Configured Dockerized multi-node environments for reliable transaction polling.',
+      'Rendered metrics visualization highlighting blockchain throughput and compliance metrics.'
+    ]
   },
 ]
 

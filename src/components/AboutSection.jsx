@@ -53,8 +53,7 @@ function AboutSection({ onContactClick }) {
 
         <div className="contact-card system-status-card">
           <div className="status-header">
-            <span className="status-dot-pulse"></span>
-            <span className="status-text">SYSTEM_ONLINE / AVAILABLE</span>
+            <span className="status-text">AVAILABLE</span>
           </div>
           <div className="status-details">
             <div className="status-row">

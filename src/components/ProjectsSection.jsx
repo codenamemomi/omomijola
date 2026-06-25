@@ -1,10 +1,12 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 function ProjectsSection({ projectItems }) {
   const sliderRef = useRef(null)
   const isDown = useRef(false)
   const startX = useRef(0)
   const scrollLeft = useRef(0)
+  const hasDragged = useRef(false)
+  const [activeProject, setActiveProject] = useState(null)
 
   useEffect(() => {
     const slider = sliderRef.current
@@ -30,15 +32,31 @@ function ProjectsSection({ projectItems }) {
     return () => slider.removeEventListener('scroll', handleScroll)
   }, [projectItems])
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setActiveProject(null)
+      }
+    }
+    if (activeProject) {
+      document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', handleKeyDown)
+    }
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [activeProject])
+
   const handlePointerDown = (event) => {
     const slider = sliderRef.current
     if (!slider) return
 
     isDown.current = true
     slider.classList.add('dragging')
-    slider.setPointerCapture(event.pointerId)
     startX.current = event.pageX - slider.offsetLeft
     scrollLeft.current = slider.scrollLeft
+    hasDragged.current = false
   }
 
   const handlePointerMove = (event) => {
@@ -48,6 +66,11 @@ function ProjectsSection({ projectItems }) {
     event.preventDefault()
     const x = event.pageX - slider.offsetLeft
     const walk = (x - startX.current) * 1.2
+    
+    if (Math.abs(x - startX.current) > 5) {
+      hasDragged.current = true
+    }
+
     slider.scrollLeft = scrollLeft.current - walk
   }
 
@@ -99,22 +122,39 @@ function ProjectsSection({ projectItems }) {
         >
           <div className="project-slider">
             {repeatedProjects.map((project, index) => (
-              <article key={`${project.title}-${index}`} className="project-card card">
+              <article
+                key={`${project.title}-${index}`}
+                className="project-card card"
+                onClick={() => {
+                  if (!hasDragged.current) {
+                    setActiveProject(project)
+                  }
+                }}
+              >
                 {project.image && (
                   <div className="project-card-image">
                     <img src={project.image} alt={`${project.title} preview`} />
+                    <div className="project-card-overlay">
+                      <span>View Architecture Details</span>
+                    </div>
                   </div>
                 )}
                 <div className="project-card-body">
-                  <div>
+                  <div className="project-card-details">
                     <h3>{project.title}</h3>
                     <p className="project-subtitle">{project.subtitle}</p>
-                    <p className="project-tech">{project.tech}</p>
+                    <div className="project-tech-badges">
+                      {project.tech.split(',').map((techItem) => (
+                        <span key={techItem} className="tech-badge">
+                          {techItem.trim()}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                   {project.description && (
                     <p className="project-description">{project.description}</p>
                   )}
-                  <div className="project-card-actions">
+                  <div className="project-card-actions" onClick={(e) => e.stopPropagation()}>
                     {project.demoUrl && (
                       <a
                         href={project.demoUrl}
@@ -150,6 +190,71 @@ function ProjectsSection({ projectItems }) {
           ›
         </button>
       </div>
+
+      {activeProject && (
+        <div className="project-details-modal" onClick={() => setActiveProject(null)}>
+          <div className="project-details-panel" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="project-details-close"
+              onClick={() => setActiveProject(null)}
+              aria-label="Close details modal"
+            >
+              ×
+            </button>
+            <div className="project-details-content-grid">
+              <div className="project-details-media">
+                <img src={activeProject.image} alt={activeProject.title} />
+              </div>
+              <div className="project-details-info">
+                <span className="project-details-tag">Project System Architecture</span>
+                <h2>{activeProject.title}</h2>
+                <p className="project-details-subtitle">{activeProject.subtitle}</p>
+                <div className="project-details-tech-pills">
+                  {activeProject.tech.split(',').map((t) => (
+                    <span key={t} className="tech-pill-modal">
+                      {t.trim()}
+                    </span>
+                  ))}
+                </div>
+                <p className="project-details-desc">{activeProject.description}</p>
+
+                <div className="project-details-highlights">
+                  <h4>Key Backend Architecture Highlights</h4>
+                  <ul className="project-details-bullets">
+                    {activeProject.details &&
+                      activeProject.details.map((bullet) => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
+                  </ul>
+                </div>
+
+                <div className="project-details-actions">
+                  {activeProject.demoUrl && (
+                    <a
+                      href={activeProject.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-details-link"
+                    >
+                      Live Deployment
+                    </a>
+                  )}
+                  {activeProject.repoUrl && (
+                    <a
+                      href={activeProject.repoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-details-link project-details-link-secondary"
+                    >
+                      GitHub Repository
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
