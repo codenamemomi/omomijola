@@ -21,12 +21,10 @@ function App() {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible')
             setActiveSection(entry.target.id)
-          } else {
-            entry.target.classList.remove('visible')
           }
         })
       },
-      { threshold: 0.35 },
+      { threshold: 0, rootMargin: '0px 0px -60px 0px' },
     )
 
     sections.forEach((section) => observer.observe(section))

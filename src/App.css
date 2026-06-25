@@ -121,7 +121,7 @@ a {
 
 .gooey-nav-wrapper {
   flex: 1;
-  min-width: 250px;
+  min-width: 0;
   display: flex;
   justify-content: flex-end;
 }
@@ -239,16 +239,27 @@ a {
 @media (max-width: 720px) {
   .topbar {
     flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0 8px;
   }
 
   .brand {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
+  }
+
+  .brand-image {
+    width: 44px;
+    height: 44px;
+  }
+
+  .brand span {
+    font-size: 0.9rem;
   }
 
   .gooey-nav-wrapper {
+    width: 100%;
     justify-content: center;
   }
 }
@@ -964,7 +975,7 @@ a {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   cursor: grab;
-  touch-action: pan-y;
+  touch-action: pan-x;
   flex: 1;
   background: transparent;
   border: none;
@@ -1695,11 +1706,59 @@ a {
 @media (max-width: 480px) {
   .gooey-nav-shell {
     gap: 2px;
-    padding: 6px 8px;
+    padding: 6px 6px;
   }
 
   .gooey-nav-link {
-    padding: 6px 8px;
+    padding: 6px 7px;
+    font-size: 0.76rem;
+    letter-spacing: 0;
+  }
+
+  .hero-title-wrap h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-title-wrap h2 {
+    font-size: 1.8rem;
+  }
+
+  .brand span {
     font-size: 0.78rem;
+    letter-spacing: 0.06em;
+  }
+
+  .brand-image {
+    width: 38px;
+    height: 38px;
+  }
+
+  .project-slider .project-card {
+    width: 85vw;
   }
 }
+
+@media (max-width: 360px) {
+  .gooey-nav-shell {
+    gap: 0;
+    padding: 5px 4px;
+  }
+
+  .gooey-nav-link {
+    padding: 5px 5px;
+    font-size: 0.7rem;
+  }
+
+  .hero-title-wrap h1 {
+    font-size: 1.3rem;
+  }
+
+  .hero-title-wrap h2 {
+    font-size: 1.5rem;
+  }
+
+  .brand span {
+    display: none;
+  }
+}
+

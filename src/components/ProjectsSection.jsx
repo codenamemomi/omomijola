@@ -50,6 +50,8 @@ function ProjectsSection({ projectItems }) {
   }, [activeProject])
 
   const handlePointerDown = (event) => {
+    if (event.pointerType === 'touch') return
+
     const slider = sliderRef.current
     if (!slider) return
 
@@ -61,6 +63,8 @@ function ProjectsSection({ projectItems }) {
   }
 
   const handlePointerMove = (event) => {
+    if (event.pointerType === 'touch') return
+
     const slider = sliderRef.current
     if (!slider || !isDown.current) return
 
@@ -78,7 +82,9 @@ function ProjectsSection({ projectItems }) {
     }
   }
 
-  const handlePointerUp = () => {
+  const handlePointerUp = (event) => {
+    if (event && event.pointerType === 'touch') return
+
     const slider = sliderRef.current
     if (!slider) return
 
