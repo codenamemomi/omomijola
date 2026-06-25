@@ -5,8 +5,9 @@ import HeroSection from './components/HeroSection.jsx'
 import AboutSection from './components/AboutSection.jsx'
 import ExperienceSection from './components/ExperienceSection.jsx'
 import ProjectsSection from './components/ProjectsSection.jsx'
+import CertificatesSection from './components/CertificatesSection.jsx'
 import SkillsSection from './components/SkillsSection.jsx'
-import { navItems, experienceItems, projectItems, skills } from './data/portfolio.js'
+import { navItems, experienceItems, projectItems, certificates, skills } from './data/portfolio.js'
 import ContactModal from './components/ContactModal.jsx'
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <AboutSection onContactClick={() => setIsContactOpen(true)} />
         <ExperienceSection experienceItems={experienceItems} />
         <ProjectsSection projectItems={projectItems} />
+        <CertificatesSection certificates={certificates} />
         <SkillsSection skills={skills} />
       </main>
       <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />

@@ -11,7 +11,6 @@ function HeroSection({ onNavigate, onContactClick }) {
       </div>
 
       <div className="hero-copy">
-        <p className="hero-context">protocol_initiated</p>
         <div className="hero-title-wrap">
           <h1>
             <ShinyText
@@ -43,7 +42,7 @@ function HeroSection({ onNavigate, onContactClick }) {
           </h2>
         </div>
         <p className="hero-tagline">
-          I_AM_A_DEVELOPER. CREATE | BUILD | AUTOMATE
+          DEVELOPER | CREATE | BUILD | AUTOMATE
         </p>
 
         <div className="hero-actions">

@@ -17,6 +17,8 @@ import reefond from '../assets/reefond.png'
 import kanec from '../assets/kanec.png'
 import backendb from '../assets/backendb.png'
 import outbound from '../assets/outbound.png'
+import certificationPython from '../assets/certification_python.JPG'
+import hngFinalist from '../assets/hng-finalist.jpeg'
 
 export const navItems = [
   { id: 'hero', label: 'Home' },
@@ -146,6 +148,21 @@ export const projectItems = [
       'Configured Dockerized multi-node environments for reliable transaction polling.',
       'Rendered metrics visualization highlighting blockchain throughput and compliance metrics.'
     ]
+  },
+]
+
+export const certificates = [
+  {
+    title: 'Python Certification',
+    issuer: 'Python Programming',
+    image: certificationPython,
+    description: 'Certificate validating my Python programming fundamentals and practical development workflow.',
+  },
+  {
+    title: 'HNG Finalist',
+    issuer: 'HNG Internship',
+    image: hngFinalist,
+    description: 'Recognition as a finalist in the HNG program, reflecting my contributions in a collaborative engineering environment.',
   },
 ]
 
