@@ -1203,7 +1203,7 @@ a {
   background: rgba(18, 19, 27, 0.4);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  z-index: 100;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1232,6 +1232,8 @@ a {
   gap: 32px;
   padding: 32px;
   overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .project-details-media {
@@ -1636,6 +1638,18 @@ a {
     gap: 18px;
   }
 
+  .section-header h2 {
+    font-size: 1.55rem;
+  }
+
+  .timeline-item {
+    padding: 20px;
+  }
+
+  .project-card h3 {
+    font-size: 1.25rem;
+  }
+
   .project-section-expanded {
     padding-left: 16px;
     padding-right: 16px;
@@ -1647,7 +1661,9 @@ a {
 
   .project-slider .project-card {
     min-width: 280px;
-    flex: 0 0 calc(100% - 12px);
+    width: 80vw;
+    max-width: 340px;
+    flex: 0 0 auto;
     padding: 22px;
   }
 
@@ -1673,5 +1689,17 @@ a {
 
   .project-details-actions a {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .gooey-nav-shell {
+    gap: 2px;
+    padding: 6px 8px;
+  }
+
+  .gooey-nav-link {
+    padding: 6px 8px;
+    font-size: 0.78rem;
   }
 }

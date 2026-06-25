@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 function ProjectsSection({ projectItems }) {
   const sliderRef = useRef(null)
@@ -63,15 +64,18 @@ function ProjectsSection({ projectItems }) {
     const slider = sliderRef.current
     if (!slider || !isDown.current) return
 
-    event.preventDefault()
     const x = event.pageX - slider.offsetLeft
-    const walk = (x - startX.current) * 1.2
+    const delta = Math.abs(x - startX.current)
     
-    if (Math.abs(x - startX.current) > 5) {
+    if (delta > 15) {
       hasDragged.current = true
+      event.preventDefault()
     }
 
-    slider.scrollLeft = scrollLeft.current - walk
+    if (hasDragged.current) {
+      const walk = (x - startX.current) * 1.2
+      slider.scrollLeft = scrollLeft.current - walk
+    }
   }
 
   const handlePointerUp = () => {
@@ -191,7 +195,7 @@ function ProjectsSection({ projectItems }) {
         </button>
       </div>
 
-      {activeProject && (
+      {activeProject && createPortal(
         <div className="project-details-modal" onClick={() => setActiveProject(null)}>
           <div className="project-details-panel" onClick={(e) => e.stopPropagation()}>
             <button
@@ -253,7 +257,8 @@ function ProjectsSection({ projectItems }) {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   )
