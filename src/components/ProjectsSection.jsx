@@ -16,20 +16,33 @@ function ProjectsSection({ projectItems }) {
     const copyWidth = slider.scrollWidth / 3
     slider.scrollLeft = copyWidth
 
+    const isJumping = { current: false }
+
     const handleScroll = () => {
-      if (!slider) return
+      if (!slider || isJumping.current) return
+
       const maxScroll = slider.scrollWidth - slider.clientWidth
       const currentPosition = slider.scrollLeft
-      const copyWidth = slider.scrollWidth / 3
+      const sectionWidth = slider.scrollWidth / 3
 
       if (currentPosition <= 50) {
-        slider.scrollLeft = currentPosition + copyWidth
+        isJumping.current = true
+        const prevBehavior = slider.style.scrollBehavior
+        slider.style.scrollBehavior = 'auto'
+        slider.scrollLeft = currentPosition + sectionWidth
+        slider.style.scrollBehavior = prevBehavior
+        requestAnimationFrame(() => { isJumping.current = false })
       } else if (currentPosition >= maxScroll - 50) {
-        slider.scrollLeft = currentPosition - copyWidth
+        isJumping.current = true
+        const prevBehavior = slider.style.scrollBehavior
+        slider.style.scrollBehavior = 'auto'
+        slider.scrollLeft = currentPosition - sectionWidth
+        slider.style.scrollBehavior = prevBehavior
+        requestAnimationFrame(() => { isJumping.current = false })
       }
     }
 
-    slider.addEventListener('scroll', handleScroll)
+    slider.addEventListener('scroll', handleScroll, { passive: true })
     return () => slider.removeEventListener('scroll', handleScroll)
   }, [projectItems])
 
