@@ -36,7 +36,7 @@ export const contactDetails = {
 
 export const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/codenamemomi', icon: FaGithub },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com', icon: FaLinkedin },
+  { label: 'LinkedIn', href: 'www.linkedin.com/in/omomijolaoluwa123', icon: FaLinkedin },
   { label: 'Email', href: 'mailto:akinrogundej@gmail.com', icon: FaEnvelope },
 ]
 

@@ -46,11 +46,11 @@ function HeroSection({ onNavigate, onContactClick }) {
         </p>
 
         <div className="hero-actions">
-          <a href="#projects" onClick={(event) => { event.preventDefault(); onNavigate('projects') }}>
+          <a href="projects" onClick={(event) => { event.preventDefault(); onNavigate('projects') }}>
             View projects
           </a>
           <a
-            href="#contact"
+            href="contact"
             className="ghost"
             onClick={(event) => {
               event.preventDefault()
