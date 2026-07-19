@@ -31,8 +31,7 @@ export const navItems = [
 export const siteConfig = {
   canonicalUrl: 'https://omomi.vercel.app',
   availability: 'Available for freelance, contract & full-time',
-  // Drop a PDF at public/resume.pdf, then set this to '/resume.pdf'
-  resumeUrl: null,
+  resumeUrl: '/resume.pdf',
 }
 
 export const contactDetails = {
