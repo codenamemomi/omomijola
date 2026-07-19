@@ -7,6 +7,7 @@ import ExperienceSection from './components/ExperienceSection.jsx'
 import ProjectsSection from './components/ProjectsSection.jsx'
 import CertificatesSection from './components/CertificatesSection.jsx'
 import SkillsSection from './components/SkillsSection.jsx'
+import Footer from './components/Footer.jsx'
 import { navItems, experienceItems, projectItems, certificates, skills } from './data/portfolio.js'
 import ContactModal from './components/ContactModal.jsx'
 
@@ -56,6 +57,7 @@ function App() {
         <CertificatesSection certificates={certificates} />
         <SkillsSection skills={skills} />
       </main>
+      <Footer onContactClick={() => setIsContactOpen(true)} onNavigate={scrollTo} />
       <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </div>
   )

@@ -28,6 +28,13 @@ export const navItems = [
   { id: 'skills', label: 'Skills' },
 ]
 
+export const siteConfig = {
+  canonicalUrl: 'https://omomi.vercel.app',
+  availability: 'Available for freelance, contract & full-time',
+  // Drop a PDF at public/resume.pdf, then set this to '/resume.pdf'
+  resumeUrl: null,
+}
+
 export const contactDetails = {
   location: 'Nigeria',
   phone: '+234 901 112 3434',
@@ -36,7 +43,7 @@ export const contactDetails = {
 
 export const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/codenamemomi', icon: FaGithub },
-  { label: 'LinkedIn', href: 'www.linkedin.com/in/omomijolaoluwa123', icon: FaLinkedin },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/omomijolaoluwa123', icon: FaLinkedin },
   { label: 'Email', href: 'mailto:akinrogundej@gmail.com', icon: FaEnvelope },
 ]
 
@@ -92,14 +99,24 @@ export const projectItems = [
     image: reefond,
     demoUrl: 'https://ree-fonddemo.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/ree-fond',
+    role: 'Backend Engineer',
+    problem:
+      'Multi-entity teams needed audit-ready compliance workflows without fragile access control or untracked state changes.',
+    impact:
+      'Delivered a containerized API platform with RBAC, audit-logged workflows, and production-ready staging paths.',
+    metrics: [
+      { label: 'Focus', value: 'Audit trails' },
+      { label: 'Auth', value: 'JWT + RBAC' },
+      { label: 'Deploy', value: 'Dockerized' },
+    ],
     description:
       'A regulatory compliance workflow platform with secure APIs, containerized deployment, and audit-ready access control for multi-entity operations.',
     details: [
       'Designed workflow execution pipelines in FastAPI ensuring audit-logged transaction states.',
       'Containerized applications using Docker and orchestrated development-to-production staging environments.',
       'Optimized SQL queries in PostgreSQL and defined strict relational model schemas.',
-      'Secured user endpoints with robust JWT authorization and role-based access control (RBAC).'
-    ]
+      'Secured user endpoints with robust JWT authorization and role-based access control (RBAC).',
+    ],
   },
   {
     title: 'Backend Battle',
@@ -108,14 +125,24 @@ export const projectItems = [
     image: backendb,
     demoUrl: 'https://backend-battle.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/Backend_Battle',
+    role: 'Backend / API Engineer',
+    problem:
+      'Teams lacked a simple way to stress-test endpoints and see latency distributions under concurrent load.',
+    impact:
+      'Built an async load engine that scores API latency and surfaces p50/p90/p99 insights through REST APIs.',
+    metrics: [
+      { label: 'Load model', value: 'Concurrent async' },
+      { label: 'Telemetry', value: 'p50 · p90 · p99' },
+      { label: 'Runtime', value: 'Non-blocking' },
+    ],
     description:
       'An async benchmarking engine that simulates concurrent API load, scores endpoint latency, and exposes performance insights through REST APIs.',
     details: [
       'Architected concurrent load generators utilizing HTTPX async calls to benchmark target endpoints.',
       'Exposed real-time latency profiles and transaction scores via REST APIs.',
       'Built async queue routines for processing batch benchmarks without blocking the event loop.',
-      'Designed lightweight telemetry dashboards showing p50, p90, and p99 response distribution.'
-    ]
+      'Designed lightweight telemetry dashboards showing p50, p90, and p99 response distribution.',
+    ],
   },
   {
     title: 'Outbound AI Calling Agent',
@@ -124,14 +151,24 @@ export const projectItems = [
     image: outbound,
     demoUrl: 'https://outbound.ai/',
     repoUrl: 'https://github.com/codenamemomi/Outbound-AI-Backend',
+    role: 'Backend Engineer',
+    problem:
+      'Outbound AI calling needed reliable session orchestration, realtime media handling, and billing that never double-charged mid-call.',
+    impact:
+      'Shipped call state machines, media stream handlers, webhooks, and Stripe subscriptions for production call automation.',
+    metrics: [
+      { label: 'Realtime', value: 'Audio streams' },
+      { label: 'Billing', value: 'Stripe + locks' },
+      { label: 'Events', value: 'Webhooks' },
+    ],
     description:
       'An outbound call automation platform with session orchestration, managed workflows, and subscription-based billing support.',
     details: [
       'Created media stream socket handlers in FastAPI for real-time bidirectional audio streaming.',
       'Engineered call state machines and transactional locks to prevent double-billing during calls.',
       'Structured system event webhooks notifying users of successful/failed call outcomes.',
-      'Implemented stripe-based subscription billing flow and secure API keys authorization.'
-    ]
+      'Implemented stripe-based subscription billing flow and secure API keys authorization.',
+    ],
   },
   {
     title: 'KANEC Impact',
@@ -140,14 +177,24 @@ export const projectItems = [
     image: kanec,
     demoUrl: 'https://kanec.vercel.app/',
     repoUrl: 'https://github.com/codenamemomi/KANEC_IMPACT',
+    role: 'Backend & Blockchain Engineer',
+    problem:
+      'Compliance teams needed immutable transaction records and analytics they could trust for audit reviews.',
+    impact:
+      'Connected FastAPI workflows to Hedera for immutable compliance logs, hashing, and throughput-aware metrics.',
+    metrics: [
+      { label: 'Ledger', value: 'Hedera' },
+      { label: 'Records', value: 'Immutable' },
+      { label: 'Ops', value: 'Docker multi-node' },
+    ],
     description:
       'A blockchain compliance system using Hedera for immutable transaction records, analytics, and secure audit trails.',
     details: [
       'Built transactions logging engine writing compliance metadata to Hedera blockchain ledger.',
       'Formulated API data structures ensuring immutable hashing of audited records.',
       'Configured Dockerized multi-node environments for reliable transaction polling.',
-      'Rendered metrics visualization highlighting blockchain throughput and compliance metrics.'
-    ]
+      'Rendered metrics visualization highlighting blockchain throughput and compliance metrics.',
+    ],
   },
 ]
 

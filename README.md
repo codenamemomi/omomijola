@@ -2,7 +2,7 @@
 
 Welcome to the source repository for my personal engineering portfolio. This platform showcases my work as a **Backend & Infrastructure Engineer** specializing in high-performance API design, microservices, containerization, and developer operations.
 
-Live Version: [s33jay.vercel.app](https://s33jay.vercel.app)
+Live Version: [omomi.vercel.app](https://omomi.vercel.app)
 
 ---
 

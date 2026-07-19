@@ -40,8 +40,8 @@ function ContactModal({ isOpen, onClose }) {
     setStatus('loading')
     setMessage('')
 
-    // const apiUrl = import.meta.env.VITE_CONTACT_API_URL || 'https://form-forums.vercel.app/api/v1/contact'
-    const apiUrl = 'http://127.0.0.1:8000/api/v1/contact'
+    const apiUrl =
+      import.meta.env.VITE_CONTACT_API_URL || 'https://form-forums.vercel.app/api/v1/contact'
 
 
     try {

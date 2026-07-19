@@ -1,21 +1,26 @@
 Manual insertions / updates to make later
 
 1. Social links
-- Replace the placeholder LinkedIn URL in src/data/portfolio.js with your real profile link.
-- If you want different GitHub or email values, update the socialLinks/contactDetails objects there.
+- LinkedIn is set to https://www.linkedin.com/in/omomijolaoluwa123 — confirm this is the final profile slug.
+- If you want different GitHub or email values, update the socialLinks/contactDetails objects in src/data/portfolio.js.
 
 2. Contact details
 - Update the phone number, location, and email in src/data/portfolio.js if they change.
+- Contact form uses VITE_CONTACT_API_URL or falls back to https://form-forums.vercel.app/api/v1/contact.
 
-3. Project content
-- Review the project titles, descriptions, demo URLs, and GitHub repo URLs in src/data/portfolio.js.
-- Replace any placeholder or outdated links with the current ones.
+3. Resume download
+- Place your PDF at public/resume.pdf
+- Set siteConfig.resumeUrl to '/resume.pdf' in src/data/portfolio.js (currently null, so the footer hides the button).
 
-4. Experience section
-- Update the job role, company, date, location, and bullet points in src/data/portfolio.js if your experience has changed.
+4. Project / case study content
+- Review role, problem, impact, metrics, demo URLs, and GitHub URLs in projectItems.
+- Prefer real business metrics when you have them (users, latency, uptime, revenue risk avoided).
 
-5. Images
+5. Experience section
+- Update the job role, company, date, location, and bullet points if your experience has changed.
+
+6. Images
 - If you want different project screenshots or a new profile image, replace the files in src/assets/ and update the matching imports in src/data/portfolio.js.
 
-6. Optional polish
-- If you want a custom favicon, site title, or metadata, update index.html and the Vite config accordingly.
+7. Optional polish
+- Canonical URL lives in siteConfig.canonicalUrl and index.html OG tags (https://omomi.vercel.app).

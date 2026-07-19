@@ -31,14 +31,18 @@ function ProjectsSection({ projectItems }) {
         slider.style.scrollBehavior = 'auto'
         slider.scrollLeft = currentPosition + sectionWidth
         slider.style.scrollBehavior = prevBehavior
-        requestAnimationFrame(() => { isJumping.current = false })
+        requestAnimationFrame(() => {
+          isJumping.current = false
+        })
       } else if (currentPosition >= maxScroll - 50) {
         isJumping.current = true
         const prevBehavior = slider.style.scrollBehavior
         slider.style.scrollBehavior = 'auto'
         slider.scrollLeft = currentPosition - sectionWidth
         slider.style.scrollBehavior = prevBehavior
-        requestAnimationFrame(() => { isJumping.current = false })
+        requestAnimationFrame(() => {
+          isJumping.current = false
+        })
       }
     }
 
@@ -83,7 +87,7 @@ function ProjectsSection({ projectItems }) {
 
     const x = event.pageX - slider.offsetLeft
     const delta = Math.abs(x - startX.current)
-    
+
     if (delta > 15) {
       hasDragged.current = true
       event.preventDefault()
@@ -122,8 +126,8 @@ function ProjectsSection({ projectItems }) {
   return (
     <section id="projects" className="section card-section project-section-expanded">
       <div className="section-header">
-        <span>Projects</span>
-        <h2>Productive platforms built with backend-first architecture</h2>
+        <span>Case Studies</span>
+        <h2>Selected systems with clear problems, architecture, and outcomes</h2>
       </div>
       <div className="project-slider-container">
         <button
@@ -158,12 +162,13 @@ function ProjectsSection({ projectItems }) {
                   <div className="project-card-image">
                     <img src={project.image} alt={`${project.title} preview`} />
                     <div className="project-card-overlay">
-                      <span>View Architecture Details</span>
+                      <span>View case study</span>
                     </div>
                   </div>
                 )}
                 <div className="project-card-body">
                   <div className="project-card-details">
+                    {project.role && <span className="project-role-chip">{project.role}</span>}
                     <h3>{project.title}</h3>
                     <p className="project-subtitle">{project.subtitle}</p>
                     <div className="project-tech-badges">
@@ -174,8 +179,16 @@ function ProjectsSection({ projectItems }) {
                       ))}
                     </div>
                   </div>
-                  {project.description && (
-                    <p className="project-description">{project.description}</p>
+                  {project.impact && <p className="project-impact-line">{project.impact}</p>}
+                  {project.metrics?.length > 0 && (
+                    <div className="project-metrics-row">
+                      {project.metrics.map((metric) => (
+                        <div key={metric.label} className="project-metric-pill">
+                          <span className="project-metric-value">{metric.value}</span>
+                          <span className="project-metric-label">{metric.label}</span>
+                        </div>
+                      ))}
+                    </div>
                   )}
                   <div className="project-card-actions" onClick={(e) => e.stopPropagation()}>
                     {project.demoUrl && (
@@ -214,71 +227,108 @@ function ProjectsSection({ projectItems }) {
         </button>
       </div>
 
-      {activeProject && createPortal(
-        <div className="project-details-modal" onClick={() => setActiveProject(null)}>
-          <div className="project-details-panel" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="project-details-close"
-              onClick={() => setActiveProject(null)}
-              aria-label="Close details modal"
-            >
-              ×
-            </button>
-            <div className="project-details-content-grid">
-              <div className="project-details-media">
-                <img src={activeProject.image} alt={activeProject.title} />
-              </div>
-              <div className="project-details-info">
-                <span className="project-details-tag">Project System Architecture</span>
-                <h2>{activeProject.title}</h2>
-                <p className="project-details-subtitle">{activeProject.subtitle}</p>
-                <div className="project-details-tech-pills">
-                  {activeProject.tech.split(',').map((t) => (
-                    <span key={t} className="tech-pill-modal">
-                      {t.trim()}
-                    </span>
-                  ))}
+      {activeProject &&
+        createPortal(
+          <div
+            className="project-details-modal"
+            onClick={() => setActiveProject(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="case-study-title"
+          >
+            <div className="project-details-panel" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="project-details-close"
+                onClick={() => setActiveProject(null)}
+                aria-label="Close case study"
+              >
+                ×
+              </button>
+              <div className="project-details-content-grid">
+                <div className="project-details-media">
+                  <img src={activeProject.image} alt={activeProject.title} />
                 </div>
-                <p className="project-details-desc">{activeProject.description}</p>
+                <div className="project-details-info">
+                  <span className="project-details-tag">Case Study</span>
+                  <h2 id="case-study-title">{activeProject.title}</h2>
+                  <p className="project-details-subtitle">{activeProject.subtitle}</p>
+                  {activeProject.role && (
+                    <p className="project-details-role">Role: {activeProject.role}</p>
+                  )}
 
-                <div className="project-details-highlights">
-                  <h4>Key Backend Architecture Highlights</h4>
-                  <ul className="project-details-bullets">
-                    {activeProject.details &&
-                      activeProject.details.map((bullet) => (
-                        <li key={bullet}>{bullet}</li>
+                  <div className="project-details-tech-pills">
+                    {activeProject.tech.split(',').map((t) => (
+                      <span key={t} className="tech-pill-modal">
+                        {t.trim()}
+                      </span>
+                    ))}
+                  </div>
+
+                  {activeProject.metrics?.length > 0 && (
+                    <div className="case-study-metrics">
+                      {activeProject.metrics.map((metric) => (
+                        <div key={metric.label} className="case-study-metric">
+                          <strong>{metric.value}</strong>
+                          <span>{metric.label}</span>
+                        </div>
                       ))}
-                  </ul>
-                </div>
+                    </div>
+                  )}
 
-                <div className="project-details-actions">
-                  {activeProject.demoUrl && (
-                    <a
-                      href={activeProject.demoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="project-details-link"
-                    >
-                      Live Deployment
-                    </a>
+                  {activeProject.problem && (
+                    <div className="case-study-block">
+                      <h4>Problem</h4>
+                      <p>{activeProject.problem}</p>
+                    </div>
                   )}
-                  {activeProject.repoUrl && (
-                    <a
-                      href={activeProject.repoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="project-details-link project-details-link-secondary"
-                    >
-                      GitHub Repository
-                    </a>
+
+                  {activeProject.impact && (
+                    <div className="case-study-block">
+                      <h4>Outcome</h4>
+                      <p>{activeProject.impact}</p>
+                    </div>
                   )}
+
+                  <p className="project-details-desc">{activeProject.description}</p>
+
+                  <div className="project-details-highlights">
+                    <h4>Architecture highlights</h4>
+                    <ul className="project-details-bullets">
+                      {activeProject.details &&
+                        activeProject.details.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                    </ul>
+                  </div>
+
+                  <div className="project-details-actions">
+                    {activeProject.demoUrl && (
+                      <a
+                        href={activeProject.demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-details-link"
+                      >
+                        Live Deployment
+                      </a>
+                    )}
+                    {activeProject.repoUrl && (
+                      <a
+                        href={activeProject.repoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-details-link project-details-link-secondary"
+                      >
+                        GitHub Repository
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body,
+        )}
     </section>
   )
 }
