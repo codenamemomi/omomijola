@@ -1,26 +1,27 @@
 import { contactDetails, socialLinks, siteConfig, navItems } from '../data/portfolio.js'
+import BookCallCta from './BookCallCta.jsx'
 
 function Footer({ onContactClick, onNavigate }) {
   const { location, email, phone } = contactDetails
   const year = new Date().getFullYear()
 
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id="visit">
       <div className="footer-inner">
         <div className="footer-brand">
           <span className="footer-availability">{siteConfig.availability}</span>
-          <h2>Let&apos;s build something reliable.</h2>
+          <h2>Plan your visit</h2>
           <p>
-            Backend systems, APIs, and infrastructure for products that need to ship and stay up.
-            Based in {location} · open to remote.
+            Commission backend systems, APIs, and infrastructure for products that need to ship and
+            stay correct. Based in {location} · open to remote.
           </p>
           <div className="footer-cta-row">
-            <button type="button" className="footer-cta-primary" onClick={onContactClick}>
-              Contact me
+            <BookCallCta className="footer-cta-primary" onContactClick={onContactClick}>
+              Book a call
+            </BookCallCta>
+            <button type="button" className="footer-cta-secondary" onClick={onContactClick}>
+              Send a message
             </button>
-            <a href={`mailto:${email}`} className="footer-cta-secondary">
-              {email}
-            </a>
             {siteConfig.resumeUrl && (
               <a
                 href={siteConfig.resumeUrl}
@@ -28,7 +29,7 @@ function Footer({ onContactClick, onNavigate }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Download resume
+                Resume
               </a>
             )}
           </div>
@@ -36,7 +37,7 @@ function Footer({ onContactClick, onNavigate }) {
 
         <div className="footer-columns">
           <div className="footer-col">
-            <h3>Navigate</h3>
+            <h3>Floor plan</h3>
             <ul>
               {navItems.map((item) => (
                 <li key={item.id}>
@@ -49,7 +50,7 @@ function Footer({ onContactClick, onNavigate }) {
           </div>
 
           <div className="footer-col">
-            <h3>Contact</h3>
+            <h3>Information desk</h3>
             <ul>
               <li>
                 <a href={`mailto:${email}`}>{email}</a>
@@ -58,13 +59,13 @@ function Footer({ onContactClick, onNavigate }) {
                 <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
               </li>
               <li>
-                <span>{location}</span>
+                <span>{location} · Remote</span>
               </li>
             </ul>
           </div>
 
           <div className="footer-col">
-            <h3>Connect</h3>
+            <h3>Channels</h3>
             <ul className="footer-socials">
               {socialLinks.map((link) => {
                 const Icon = link.icon
@@ -89,7 +90,7 @@ function Footer({ onContactClick, onNavigate }) {
 
       <div className="footer-bottom">
         <p>© {year} Omomijolaoluwa Akinrogunde. All rights reserved.</p>
-        <p className="footer-tagline">Backend &amp; Infrastructure Engineer</p>
+        <p className="footer-tagline">Permanent collection of production systems</p>
       </div>
     </footer>
   )

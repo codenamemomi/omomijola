@@ -22,18 +22,63 @@ import hngFinalist from '../assets/hng-finalist.jpeg'
 import jobhunter from '../assets/jobhunter.png'
 
 export const navItems = [
-  { id: 'hero', label: 'Home' },
+  { id: 'hero', label: 'Lobby' },
   { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'skills', label: 'Skills' },
+  { id: 'services', label: 'Services' },
+  { id: 'experience', label: 'Record' },
+  { id: 'projects', label: 'Collection' },
+  { id: 'skills', label: 'Materials' },
 ]
 
 export const siteConfig = {
   canonicalUrl: 'https://omomi.vercel.app',
-  availability: 'Available for freelance, contract & full-time',
+  availability: 'Open for commission · freelance, contract & full-time',
   resumeUrl: '/resume.pdf',
+  // Set to your Cal.com / Calendly URL to enable direct booking (e.g. 'https://cal.com/you/intro')
+  // When null, "Book a call" opens the contact form instead.
+  bookingUrl: null,
+  mission:
+    'I design backend systems for products that need reliable APIs, honest data, and deployable infrastructure, especially commerce logistics, compliance, and AI-assisted workflows.',
 }
+
+/** Lobby proof strip — swap values as you get stronger numbers */
+export const heroMetrics = [
+  { value: '5+', label: 'Systems shipped' },
+  { value: '6s → 1.4s', label: 'Load-time win' },
+  { value: '100+', label: 'Users served' },
+  { value: 'Remote', label: 'Open to hire' },
+]
+
+export const services = [
+  {
+    title: 'Backend API development',
+    description:
+      'Design and ship FastAPI/Django APIs with auth, validation, and clear domain boundaries, ready for real clients, not demos.',
+    bestFor: 'Startups and products that need a solid API layer',
+    tags: ['FastAPI', 'Django', 'JWT', 'REST'],
+  },
+  {
+    title: 'Data & performance',
+    description:
+      'PostgreSQL modeling, query tuning, Redis caching, and async workers so latency stays honest under load.',
+    bestFor: 'Apps feeling slow, inconsistent, or hard to scale',
+    tags: ['PostgreSQL', 'Redis', 'Celery', 'Profiling'],
+  },
+  {
+    title: 'Deployable infrastructure',
+    description:
+      'Docker, NGINX, CI/CD, and cloud wiring so releases are repeatable and production stops being manual.',
+    bestFor: 'Teams shipping by hand or fighting fragile deploys',
+    tags: ['Docker', 'NGINX', 'GitHub Actions', 'AWS'],
+  },
+  {
+    title: 'AI & realtime backends',
+    description:
+      'Session orchestration, webhooks, streaming, and billing-safe state machines for AI agents and call flows.',
+    bestFor: 'AI products with concurrency, sessions, or payments risk',
+    tags: ['Webhooks', 'Streaming', 'State machines', 'Stripe'],
+  },
+]
 
 export const contactDetails = {
   location: 'Nigeria',
@@ -54,10 +99,10 @@ export const experienceItems = [
     date: 'January 2026 — Present',
     location: 'Remote',
     bullets: [
-      'Architecting and building a high-performance FastAPI backend for a multi-vendor food delivery and e-commerce platform, serving tailorable meal subscriptions (weekly/monthly plans).',
+      'Architecting and building a high performance FastAPI backend for a multi-vendor food delivery and e-commerce platform, serving tailorable meal subscriptions (weekly/monthly plans).',
       'Implemented recommendation intelligence to suggest customized balanced/low-carb options matching user diet profiles (e.g., weight loss).',
       'Developed a consolidated cart system allowing users to place single orders from multiple vendors with single-rider delivery and advanced scheduling.',
-      'Built a subscription-based grocery engine supporting automated same-day deliveries at weekly, bi-weekly, or monthly intervals.',
+      'Built a subscription-based grocery engine supporting automated same day deliveries at weekly, bi-weekly, or monthly intervals.',
       'Designed the "111 Feature" enabling users to pre-schedule breakfast, lunch, and dinner slots dynamically aligned with vendor closing hours and rider availability.',
     ],
     tags: ['FastAPI', 'Python', 'Pydantic', 'Logistics Scheduling', 'Multi-vendor Cart'],
@@ -100,6 +145,8 @@ export const projectItems = [
     demoUrl: 'https://ree-fonddemo.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/ree-fond',
     role: 'Backend Engineer',
+    year: '2025',
+    wing: 'Compliance & trust',
     problem:
       'Multi-entity teams needed audit-ready compliance workflows without fragile access control or untracked state changes.',
     impact:
@@ -126,6 +173,8 @@ export const projectItems = [
     demoUrl: 'https://backend-battle.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/Backend_Battle',
     role: 'Backend / API Engineer',
+    year: '2025',
+    wing: 'Performance & tooling',
     problem:
       'Teams lacked a simple way to stress-test endpoints and see latency distributions under concurrent load.',
     impact:
@@ -152,6 +201,8 @@ export const projectItems = [
     demoUrl: 'https://jobhunter-seven-mu.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/jobhunter',
     role: 'Full-Stack Engineer',
+    year: '2025',
+    wing: 'Product systems',
     problem:
       'Job seekers waste hours manually checking multiple job boards, re-reading listings against their CV, and tracking application status across scattered emails and spreadsheets.',
     impact:
@@ -180,6 +231,8 @@ export const projectItems = [
     demoUrl: 'https://outbound.ai/',
     repoUrl: 'https://github.com/codenamemomi/Outbound-AI-Backend',
     role: 'Backend Engineer',
+    year: '2025',
+    wing: 'Realtime & AI',
     problem:
       'Outbound AI calling needed reliable session orchestration, realtime media handling, and billing that never double-charged mid-call.',
     impact:
@@ -206,6 +259,8 @@ export const projectItems = [
     demoUrl: 'https://kanec.vercel.app/',
     repoUrl: 'https://github.com/codenamemomi/KANEC_IMPACT',
     role: 'Backend & Blockchain Engineer',
+    year: '2024',
+    wing: 'Compliance & trust',
     problem:
       'Compliance teams needed immutable transaction records and analytics they could trust for audit reviews.',
     impact:
@@ -241,6 +296,7 @@ export const certificates = [
   },
 ]
 
+/** Flat list kept for any simple consumers */
 export const skills = [
   { label: 'FastAPI', icon: SiFastapi, color: '#00c18d' },
   { label: 'Django', icon: SiDjango, color: '#0c7b4c' },
@@ -255,4 +311,45 @@ export const skills = [
   { label: 'Cloudflare', icon: SiCloudflare, color: '#f38020' },
   { label: 'React', icon: SiReact, color: '#61dafb' },
   { label: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+]
+
+/** Museum materials wall — grouped craft mediums */
+export const skillGroups = [
+  {
+    name: 'Backend',
+    caption: 'Core mediums',
+    items: [
+      { label: 'FastAPI', icon: SiFastapi, color: '#00c18d' },
+      { label: 'Django', icon: SiDjango, color: '#0c7b4c' },
+      { label: 'API Design', icon: SiSwagger, color: '#61dafb' },
+    ],
+  },
+  {
+    name: 'Data',
+    caption: 'Storage & async',
+    items: [
+      { label: 'PostgreSQL', icon: SiPostgresql, color: '#316192' },
+      { label: 'Redis', icon: SiRedis, color: '#d82c20' },
+      { label: 'Celery', icon: SiRabbitmq, color: '#f26f33' },
+    ],
+  },
+  {
+    name: 'Infrastructure',
+    caption: 'Deploy & runtime',
+    items: [
+      { label: 'Docker', icon: SiDocker, color: '#2496ed' },
+      { label: 'NGINX', icon: SiNginx, color: '#2f855a' },
+      { label: 'GitHub Actions', icon: SiGithubactions, color: '#f05032' },
+    ],
+  },
+  {
+    name: 'Cloud & interface',
+    caption: 'Environment & clients',
+    items: [
+      { label: 'AWS', icon: FaAws, color: '#ff9900' },
+      { label: 'Cloudflare', icon: SiCloudflare, color: '#f38020' },
+      { label: 'React', icon: SiReact, color: '#61dafb' },
+      { label: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+    ],
+  },
 ]

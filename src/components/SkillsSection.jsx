@@ -1,25 +1,37 @@
-import CircularGallery from './CircularGallery.jsx'
-
-function SkillsSection({ skills }) {
-  const items = skills.map((skill) => ({
-    ...skill,
-    icon: <skill.icon size={32} />,
-  }))
-
+function SkillsSection({ skillGroups = [] }) {
   return (
-    <section id="skills" className="section skills-section">
-      <div className="section-header">
-        <span>Skills</span>
-        <h2>Tools and technologies I use every day</h2>
+    <section id="skills" className="section skills-section materials-section">
+      <div className="section-header museum-header">
+        <span>Materials</span>
+        <h2>Craft mediums used across the collection</h2>
+        <p className="section-lede">
+          Grouped by how they appear in production work—not as a logo parade, but as the materials of
+          the craft.
+        </p>
       </div>
-      <div className="skill-gallery-wrap">
-        <CircularGallery
-          items={items}
-          textColor="#12131b"
-          scrollSpeed={1.2}
-          borderRadius={0.18}
-          font="700 18px Inter"
-        />
+
+      <div className="materials-wall">
+        {skillGroups.map((group) => (
+          <div key={group.name} className="materials-panel">
+            <div className="materials-panel-header">
+              <h3>{group.name}</h3>
+              <span>{group.caption}</span>
+            </div>
+            <ul className="materials-list">
+              {group.items.map((item) => {
+                const Icon = item.icon
+                return (
+                  <li key={item.label} className="material-item">
+                    <span className="material-swatch" style={{ background: item.color }} aria-hidden>
+                      <Icon size={18} />
+                    </span>
+                    <span className="material-name">{item.label}</span>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        ))}
       </div>
     </section>
   )

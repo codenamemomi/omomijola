@@ -1,19 +1,28 @@
 function ExperienceSection({ experienceItems }) {
   return (
     <section id="experience" className="section">
-      <div className="section-header">
-        <span>Experience</span>
-        <h2>High-impact backend work and infrastructure ownership</h2>
+      <div className="section-header museum-header">
+        <span>Institutional record</span>
+        <h2>Career chronology</h2>
+        <p className="section-lede">
+          Roles and commissions where backend ownership, performance, and infrastructure were the
+          main medium.
+        </p>
       </div>
       <div className="timeline">
-        {experienceItems.map((item) => (
+        {experienceItems.map((item, index) => (
           <article key={`${item.company}-${item.role}`} className="timeline-item card">
             <div className="timeline-content">
               <div className="timeline-title">
+                <span className="timeline-accession">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
                 <h3>{item.role}</h3>
                 <span className="company-name">{item.company}</span>
               </div>
-              <p className="timeline-meta">{item.date} · {item.location}</p>
+              <p className="timeline-meta">
+                {item.date} · {item.location}
+              </p>
               <ul className="timeline-bullets">
                 {item.bullets.map((bullet) => (
                   <li key={bullet}>{bullet}</li>
@@ -22,7 +31,9 @@ function ExperienceSection({ experienceItems }) {
               {item.tags && (
                 <div className="experience-tags">
                   {item.tags.map((tag) => (
-                    <span key={tag} className="exp-tag">{tag}</span>
+                    <span key={tag} className="exp-tag">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               )}

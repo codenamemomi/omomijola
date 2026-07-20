@@ -1,60 +1,44 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 function ProjectsSection({ projectItems }) {
-  const sliderRef = useRef(null)
-  const isDown = useRef(false)
-  const startX = useRef(0)
-  const scrollLeft = useRef(0)
-  const hasDragged = useRef(false)
   const [activeProject, setActiveProject] = useState(null)
+  const [activeWing, setActiveWing] = useState('All')
 
-  useEffect(() => {
-    const slider = sliderRef.current
-    if (!slider || projectItems.length === 0) return
+  const wings = useMemo(() => {
+    const unique = []
+    projectItems.forEach((item) => {
+      if (item.wing && !unique.includes(item.wing)) unique.push(item.wing)
+    })
+    return ['All', ...unique]
+  }, [projectItems])
 
-    const copyWidth = slider.scrollWidth / 3
-    slider.scrollLeft = copyWidth
+  const filteredProjects = useMemo(() => {
+    if (activeWing === 'All') return projectItems
+    return projectItems.filter((item) => item.wing === activeWing)
+  }, [projectItems, activeWing])
 
-    const isJumping = { current: false }
-
-    const handleScroll = () => {
-      if (!slider || isJumping.current) return
-
-      const maxScroll = slider.scrollWidth - slider.clientWidth
-      const currentPosition = slider.scrollLeft
-      const sectionWidth = slider.scrollWidth / 3
-
-      if (currentPosition <= 50) {
-        isJumping.current = true
-        const prevBehavior = slider.style.scrollBehavior
-        slider.style.scrollBehavior = 'auto'
-        slider.scrollLeft = currentPosition + sectionWidth
-        slider.style.scrollBehavior = prevBehavior
-        requestAnimationFrame(() => {
-          isJumping.current = false
-        })
-      } else if (currentPosition >= maxScroll - 50) {
-        isJumping.current = true
-        const prevBehavior = slider.style.scrollBehavior
-        slider.style.scrollBehavior = 'auto'
-        slider.scrollLeft = currentPosition - sectionWidth
-        slider.style.scrollBehavior = prevBehavior
-        requestAnimationFrame(() => {
-          isJumping.current = false
-        })
-      }
+  const roomGroups = useMemo(() => {
+    if (activeWing !== 'All') {
+      return [{ wing: activeWing, items: filteredProjects }]
     }
 
-    slider.addEventListener('scroll', handleScroll, { passive: true })
-    return () => slider.removeEventListener('scroll', handleScroll)
-  }, [projectItems])
+    const groups = []
+    const wingOrder = []
+    projectItems.forEach((project) => {
+      const wing = project.wing || 'Collection'
+      if (!wingOrder.includes(wing)) {
+        wingOrder.push(wing)
+        groups.push({ wing, items: [] })
+      }
+      groups.find((g) => g.wing === wing).items.push(project)
+    })
+    return groups
+  }, [projectItems, filteredProjects, activeWing])
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setActiveProject(null)
-      }
+      if (event.key === 'Escape') setActiveProject(null)
     }
     if (activeProject) {
       document.body.style.overflow = 'hidden'
@@ -66,165 +50,134 @@ function ProjectsSection({ projectItems }) {
     }
   }, [activeProject])
 
-  const handlePointerDown = (event) => {
-    if (event.pointerType === 'touch') return
-
-    const slider = sliderRef.current
-    if (!slider) return
-
-    isDown.current = true
-    slider.classList.add('dragging')
-    startX.current = event.pageX - slider.offsetLeft
-    scrollLeft.current = slider.scrollLeft
-    hasDragged.current = false
-  }
-
-  const handlePointerMove = (event) => {
-    if (event.pointerType === 'touch') return
-
-    const slider = sliderRef.current
-    if (!slider || !isDown.current) return
-
-    const x = event.pageX - slider.offsetLeft
-    const delta = Math.abs(x - startX.current)
-
-    if (delta > 15) {
-      hasDragged.current = true
-      event.preventDefault()
-    }
-
-    if (hasDragged.current) {
-      const walk = (x - startX.current) * 1.2
-      slider.scrollLeft = scrollLeft.current - walk
-    }
-  }
-
-  const handlePointerUp = (event) => {
-    if (event && event.pointerType === 'touch') return
-
-    const slider = sliderRef.current
-    if (!slider) return
-
-    isDown.current = false
-    slider.classList.remove('dragging')
-  }
-
-  const scrollByCard = (direction) => {
-    const slider = sliderRef.current
-    if (!slider) return
-
-    const card = slider.querySelector('.project-card')
-    const cardWidth = card ? card.offsetWidth : 420
-    const gap = 24
-    const distance = (cardWidth + gap) * direction
-
-    slider.scrollTo({ left: slider.scrollLeft + distance, behavior: 'smooth' })
-  }
-
-  const repeatedProjects = [...projectItems, ...projectItems, ...projectItems]
-
   return (
-    <section id="projects" className="section card-section project-section-expanded">
-      <div className="section-header">
-        <span>Case Studies</span>
-        <h2>Selected systems with clear problems, architecture, and outcomes</h2>
-      </div>
-      <div className="project-slider-container">
-        <button
-          type="button"
-          className="project-slider-arrow project-slider-prev"
-          onClick={() => scrollByCard(-1)}
-          aria-label="Previous project"
-        >
-          ‹
-        </button>
-        <div
-          ref={sliderRef}
-          className="project-slider-wrapper"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerUp}
-          onPointerCancel={handlePointerUp}
-        >
-          <div className="project-slider">
-            {repeatedProjects.map((project, index) => (
-              <article
-                key={`${project.title}-${index}`}
-                className="project-card card"
-                onClick={() => {
-                  if (!hasDragged.current) {
-                    setActiveProject(project)
-                  }
-                }}
-              >
-                {project.image && (
-                  <div className="project-card-image">
-                    <img src={project.image} alt={`${project.title} preview`} />
-                    <div className="project-card-overlay">
-                      <span>View case study</span>
-                    </div>
-                  </div>
-                )}
-                <div className="project-card-body">
-                  <div className="project-card-details">
-                    {project.role && <span className="project-role-chip">{project.role}</span>}
-                    <h3>{project.title}</h3>
-                    <p className="project-subtitle">{project.subtitle}</p>
-                    <div className="project-tech-badges">
-                      {project.tech.split(',').map((techItem) => (
-                        <span key={techItem} className="tech-badge">
-                          {techItem.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  {project.impact && <p className="project-impact-line">{project.impact}</p>}
-                  {project.metrics?.length > 0 && (
-                    <div className="project-metrics-row">
-                      {project.metrics.map((metric) => (
-                        <div key={metric.label} className="project-metric-pill">
-                          <span className="project-metric-value">{metric.value}</span>
-                          <span className="project-metric-label">{metric.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <div className="project-card-actions" onClick={(e) => e.stopPropagation()}>
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="project-card-link"
-                      >
-                        Live demo
-                      </a>
-                    )}
-                    {project.repoUrl && (
-                      <a
-                        href={project.repoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="project-card-link project-card-link-secondary"
-                      >
-                        GitHub repo
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+    <section id="projects" className="section gallery-section">
+      <div className="gallery-intro">
+        <div className="section-header museum-header">
+          <span>Collection</span>
+          <h2>Gallery rooms</h2>
+          <p className="section-lede">
+            One system per room. Read the problem and outcome on the plaque; open full wall text for
+            architecture depth.
+          </p>
         </div>
-        <button
-          type="button"
-          className="project-slider-arrow project-slider-next"
-          onClick={() => scrollByCard(1)}
-          aria-label="Next project"
-        >
-          ›
-        </button>
+      </div>
+
+      <div className="wing-filters-sticky">
+        <div className="wing-filters" role="tablist" aria-label="Collection wings">
+          {wings.map((wing) => (
+            <button
+              key={wing}
+              type="button"
+              role="tab"
+              aria-selected={activeWing === wing}
+              className={`wing-filter${activeWing === wing ? ' active' : ''}`}
+              onClick={() => setActiveWing(wing)}
+            >
+              {wing}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="gallery-rooms">
+        {roomGroups.map((group) => (
+          <div key={group.wing} className="gallery-wing">
+            {activeWing === 'All' && (
+              <div className="wing-divider">
+                <span className="wing-divider-label">Wing</span>
+                <h3>{group.wing}</h3>
+                <div className="wing-divider-rule" />
+              </div>
+            )}
+
+            {group.items.map((project) => {
+              const roomId = project.title.toLowerCase().replace(/\s+/g, '-')
+              const mediumPreview = project.tech
+                .split(',')
+                .map((t) => t.trim())
+                .slice(0, 4)
+                .join(' · ')
+
+              return (
+                <article key={project.title} id={`exhibit-${roomId}`} className="gallery-room gallery-room-slim">
+                  <div className="gallery-room-media">
+                    <div className="gallery-room-frame">
+                      {project.image && (
+                        <img src={project.image} alt={`${project.title} system preview`} />
+                      )}
+                    </div>
+                    {project.metrics?.length > 0 && (
+                      <div className="gallery-vitrine">
+                        {project.metrics.map((metric) => (
+                          <div key={metric.label} className="gallery-vitrine-item">
+                            <strong>{metric.value}</strong>
+                            <span>{metric.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="gallery-room-plaque">
+                    <div className="plaque-meta-row">
+                      {project.wing && <span className="plaque-wing">{project.wing}</span>}
+                      {project.year && <span className="plaque-year">{project.year}</span>}
+                    </div>
+
+                    <h3>{project.title}</h3>
+                    <p className="exhibit-subtitle">{project.subtitle}</p>
+                    <p className="plaque-medium-line">{mediumPreview}</p>
+
+                    {project.problem && (
+                      <div className="case-study-block">
+                        <h4>Problem</h4>
+                        <p>{project.problem}</p>
+                      </div>
+                    )}
+
+                    {project.impact && (
+                      <div className="case-study-block">
+                        <h4>Outcome</h4>
+                        <p>{project.impact}</p>
+                      </div>
+                    )}
+
+                    <div className="exhibit-actions">
+                      <button
+                        type="button"
+                        className="project-card-link"
+                        onClick={() => setActiveProject(project)}
+                      >
+                        Full wall text
+                      </button>
+                      {project.demoUrl && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-card-link project-card-link-secondary"
+                        >
+                          Live artifact
+                        </a>
+                      )}
+                      {project.repoUrl && (
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-card-link project-card-link-secondary"
+                        >
+                          Source
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        ))}
       </div>
 
       {activeProject &&
@@ -236,11 +189,14 @@ function ProjectsSection({ projectItems }) {
             aria-modal="true"
             aria-labelledby="case-study-title"
           >
-            <div className="project-details-panel" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="project-details-panel exhibit-panel"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button
                 className="project-details-close"
                 onClick={() => setActiveProject(null)}
-                aria-label="Close case study"
+                aria-label="Close wall text"
               >
                 ×
               </button>
@@ -249,20 +205,32 @@ function ProjectsSection({ projectItems }) {
                   <img src={activeProject.image} alt={activeProject.title} />
                 </div>
                 <div className="project-details-info">
-                  <span className="project-details-tag">Case Study</span>
+                  <span className="project-details-tag">Wall text</span>
                   <h2 id="case-study-title">{activeProject.title}</h2>
                   <p className="project-details-subtitle">{activeProject.subtitle}</p>
-                  {activeProject.role && (
-                    <p className="project-details-role">Role: {activeProject.role}</p>
-                  )}
 
-                  <div className="project-details-tech-pills">
-                    {activeProject.tech.split(',').map((t) => (
-                      <span key={t} className="tech-pill-modal">
-                        {t.trim()}
-                      </span>
-                    ))}
-                  </div>
+                  <dl className="plaque-facts plaque-facts-modal">
+                    {activeProject.wing && (
+                      <div>
+                        <dt>Wing</dt>
+                        <dd>{activeProject.wing}</dd>
+                      </div>
+                    )}
+                    <div>
+                      <dt>Medium</dt>
+                      <dd>{activeProject.tech}</dd>
+                    </div>
+                    <div>
+                      <dt>Role</dt>
+                      <dd>{activeProject.role}</dd>
+                    </div>
+                    {activeProject.year && (
+                      <div>
+                        <dt>Year</dt>
+                        <dd>{activeProject.year}</dd>
+                      </div>
+                    )}
+                  </dl>
 
                   {activeProject.metrics?.length > 0 && (
                     <div className="case-study-metrics">
@@ -291,13 +259,31 @@ function ProjectsSection({ projectItems }) {
 
                   <p className="project-details-desc">{activeProject.description}</p>
 
+                  <div className="architecture-schematic" aria-label="Architecture mediums">
+                    <span className="schematic-label">Schematic</span>
+                    <div className="schematic-flow">
+                      {activeProject.tech.split(',').map((medium, i, arr) => {
+                        const label = medium.trim()
+                        return (
+                          <span key={label} className="schematic-node-wrap">
+                            <span className="schematic-node">{label}</span>
+                            {i < arr.length - 1 && (
+                              <span className="schematic-arrow" aria-hidden>
+                                →
+                              </span>
+                            )}
+                          </span>
+                        )
+                      })}
+                    </div>
+                  </div>
+
                   <div className="project-details-highlights">
-                    <h4>Architecture highlights</h4>
+                    <h4>Architecture notes</h4>
                     <ul className="project-details-bullets">
-                      {activeProject.details &&
-                        activeProject.details.map((bullet) => (
-                          <li key={bullet}>{bullet}</li>
-                        ))}
+                      {activeProject.details?.map((bullet) => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
                     </ul>
                   </div>
 
@@ -309,7 +295,7 @@ function ProjectsSection({ projectItems }) {
                         rel="noreferrer"
                         className="project-details-link"
                       >
-                        Live Deployment
+                        Live artifact
                       </a>
                     )}
                     {activeProject.repoUrl && (
@@ -319,7 +305,7 @@ function ProjectsSection({ projectItems }) {
                         rel="noreferrer"
                         className="project-details-link project-details-link-secondary"
                       >
-                        GitHub Repository
+                        Source repository
                       </a>
                     )}
                   </div>

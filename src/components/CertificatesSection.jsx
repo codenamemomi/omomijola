@@ -1,9 +1,12 @@
 function CertificatesSection({ certificates = [] }) {
   return (
     <section id="certificates" className="section card-section">
-      <div className="section-header">
-        <span>Certificates</span>
-        <h2>Milestones that reflect my growth as a developer</h2>
+      <div className="section-header museum-header">
+        <span>Archives</span>
+        <h2>Credentials &amp; recognition</h2>
+        <p className="section-lede">
+          Supporting documents from the path into production engineering.
+        </p>
       </div>
 
       <div className="certificates-grid">

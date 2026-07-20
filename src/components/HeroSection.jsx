@@ -1,63 +1,56 @@
-import ShinyText from './ShinyText'
-import { socialLinks } from '../data/portfolio.js'
+import { socialLinks, siteConfig, heroMetrics } from '../data/portfolio.js'
+import BookCallCta from './BookCallCta.jsx'
 
 function HeroSection({ onNavigate, onContactClick }) {
   return (
-    <section id="hero" className="section hero-section">
+    <section id="hero" className="section hero-section museum-lobby">
       <div className="hero-stage">
         <div className="hero-lights"></div>
         <div className="hero-glow"></div>
-        <div className="hero-logo-ring"></div>
       </div>
 
       <div className="hero-copy">
-        <div className="hero-title-wrap">
-          <h1>
-            <ShinyText
-              text="HELLO_I_AM"
-              speed={2}
-              delay={0}
-              color="#28316c"
-              shineColor="#ffffff"
-              spread={120}
-              direction="left"
-              yoyo={false}
-              pauseOnHover={false}
-              disabled={false}
-            />
-          </h1>
-          <h2>
-            <ShinyText
-              text="Omomijolaoluwa"
-              speed={2.4}
-              delay={0.25}
-              color="#2c3a82"
-              shineColor="#ffffff"
-              spread={140}
-              direction="left"
-              yoyo={false}
-              pauseOnHover={false}
-              disabled={false}
-            />
-          </h2>
+        {/* <p className="hero-context">Permanent collection · Backend systems</p> */}
+
+        <div className="hero-title-wrap lobby-title">
+          <h1>Omomijolaoluwa</h1>
+          <p className="hero-role-line">Backend &amp; Infrastructure Engineer</p>
         </div>
-        <p className="hero-tagline">
-          DEVELOPER | CREATE | BUILD | AUTOMATE
-        </p>
+
+        <p className="hero-mission">{siteConfig.mission}</p>
+
+        <div className="hero-metrics" aria-label="Key metrics">
+          {heroMetrics.map((metric) => (
+            <div key={metric.label} className="hero-metric">
+              <strong>{metric.value}</strong>
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </div>
 
         <div className="hero-actions">
-          <a href="projects" onClick={(event) => { event.preventDefault(); onNavigate('projects') }}>
-            View projects
-          </a>
+          <BookCallCta className="hero-cta-primary" onContactClick={onContactClick}>
+            Book a call
+          </BookCallCta>
           <a
-            href="contact"
+            href="#services"
             className="ghost"
             onClick={(event) => {
               event.preventDefault()
-              onContactClick()
+              onNavigate('services')
             }}
           >
-            Contact me
+            View services
+          </a>
+          <a
+            href="#projects"
+            className="ghost"
+            onClick={(event) => {
+              event.preventDefault()
+              onNavigate('projects')
+            }}
+          >
+            Enter the collection
           </a>
         </div>
 
