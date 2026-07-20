@@ -19,6 +19,7 @@ import backendb from '../assets/backendb.png'
 import outbound from '../assets/outbound.png'
 import certificationPython from '../assets/certification_python.JPG'
 import hngFinalist from '../assets/hng-finalist.jpeg'
+import jobhunter from '../assets/jobhunter.png'
 
 export const navItems = [
   { id: 'hero', label: 'Home' },
@@ -141,6 +142,34 @@ export const projectItems = [
       'Exposed real-time latency profiles and transaction scores via REST APIs.',
       'Built async queue routines for processing batch benchmarks without blocking the event loop.',
       'Designed lightweight telemetry dashboards showing p50, p90, and p99 response distribution.',
+    ],
+  },
+  {
+    title: 'JobHunter',
+    subtitle: 'Personal Job-Hunting & Auto-Apply Platform',
+    tech: 'FastAPI, SQLAlchemy, React 18 + Vite, Celery, PostgreSQL/Supabase',
+    image: jobhunter,
+    demoUrl: 'https://jobhunter-seven-mu.vercel.app',
+    repoUrl: 'https://github.com/codenamemomi/jobhunter',
+    role: 'Full-Stack Engineer',
+    problem:
+      'Job seekers waste hours manually checking multiple job boards, re-reading listings against their CV, and tracking application status across scattered emails and spreadsheets.',
+    impact:
+      'Built a unified platform that aggregates listings from six job boards, ranks them against an uploaded CV, and can draft or auto-send email applications — cutting the job search workflow down to a single dashboard.',
+    metrics: [
+      { label: 'Job sources', value: '6 boards' },
+      { label: 'Pipeline', value: 'Wishlist → Applied' },
+      { label: 'Auto-apply', value: 'Daily-capped' },
+    ],
+    description:
+      'A personal job-hunting platform that scrapes listings from RemoteOK, Remotive, ArbeitNow, Jobicy, Himalayas, and The Muse, parses and matches them against your CV, and lets you track or auto-apply to roles by email.',
+    details: [
+      'Built a FastAPI backend with SQLAlchemy models and Alembic migrations, deployed against SQLite locally and Supabase Postgres in production.',
+      'Implemented rule-based CV parsing (PDF/DOCX/TXT) and a scoring engine that ranks scraped jobs against the parsed profile without requiring an AI model.',
+      'Designed a multi-source scraper layer that normalizes listings into a single schema and detects apply_method (email, url, or unknown) per job.',
+      'Built an email-apply pipeline (Gmail SMTP / Brevo) with draft-then-send flow, race-safe upsert on applications, and an optional auto-apply mode with daily send limits.',
+      'Added background auto-scrape scheduling, with an optional Celery + Redis worker/beat setup for multi-worker production deployments.',
+      'Shipped a React 18 + Vite frontend (Search, Matches, Queue, Tracker, CV pages) with JWT auth, deployed on Vercel with CORS-aware config against a Render-hosted API.',
     ],
   },
   {
