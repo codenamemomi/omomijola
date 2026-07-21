@@ -20,6 +20,7 @@ import outbound from '../assets/outbound.png'
 import certificationPython from '../assets/certification_python.JPG'
 import hngFinalist from '../assets/hng-finalist.jpeg'
 import jobhunter from '../assets/jobhunter.png'
+import konasal from '../assets/konasal.png'
 
 export const navItems = [
   { id: 'hero', label: 'Lobby' },
@@ -43,10 +44,9 @@ export const siteConfig = {
 
 /** Lobby proof strip — swap values as you get stronger numbers */
 export const heroMetrics = [
-  { value: '5+', label: 'Systems shipped' },
+  { value: '6+', label: 'Systems shipped' },
   { value: '6s → 1.4s', label: 'Load-time win' },
   { value: '100+', label: 'Users served' },
-  { value: 'Remote', label: 'Open to hire' },
 ]
 
 export const services = [
@@ -163,6 +163,36 @@ export const projectItems = [
       'Containerized applications using Docker and orchestrated development-to-production staging environments.',
       'Optimized SQL queries in PostgreSQL and defined strict relational model schemas.',
       'Secured user endpoints with robust JWT authorization and role-based access control (RBAC).',
+    ],
+  },
+  {
+    title: 'Konasal Training Institute',
+    subtitle: 'Full-Stack Online Learning Platform',
+    tech: 'FastAPI, PostgreSQL, Redis, JavaScript, Bootstrap 5, PayPal API',
+    image: konasal,
+    demoUrl: 'https://www.konasalti.com',
+    repoUrl: 'https://github.com/codenamemomi/konasal_frontend',
+    role: 'Full-Stack Engineer',
+    year: '2024',
+    wing: 'EdTech & payments',
+    problem:
+      'The institute needed an end-to-end platform — from a responsive student-facing site to a secure, payment-capable backend — to sell and manage career courses at scale.',
+    impact:
+      'Delivered a complete learning platform: an async FastAPI backend handling auth, PayPal payments, and enrollments, paired with a responsive frontend used by real students to browse, enroll, and pay for courses.',
+    metrics: [
+      { label: 'Stack', value: 'Full-stack' },
+      { label: 'Payments', value: 'PayPal + manual' },
+      { label: 'Auth', value: 'JWT + email verify' },
+    ],
+    description:
+      'A complete online learning platform: an async FastAPI backend with PostgreSQL, Redis, and PayPal integration, powering a responsive frontend for course discovery, enrollment, payments, and profile management.',
+    details: [
+      'Designed an async FastAPI backend with SQLAlchemy and Alembic migrations, using PostgreSQL for persistence and Redis for token storage, blacklisting, and caching.',
+      'Implemented JWT-based authentication with email verification and password reset, plus role-based access separating user and admin flows.',
+      'Integrated PayPal REST API for order creation/capture, alongside manual payment confirmation (Zelle, bank transfer) with admin-side verification.',
+      'Built promo-code-aware enrollment logic supporting full and flexible (50% down) payment options, with progress and status tracking per enrollment.',
+      'Built a responsive multi-page frontend (HTML5, CSS3, Bootstrap 5, jQuery) for course discovery, registration, payment, and profile management, plus a separate admin panel.',
+      'Wired email notifications (Brevo/Sendinblue) for verification, password resets, and enrollment confirmations, with console-log fallback for local dev.',
     ],
   },
   {
