@@ -203,130 +203,137 @@ function ProjectsSection({ projectItems }) {
             aria-labelledby="case-study-title"
           >
             <div
-              className="project-details-panel exhibit-panel"
+              className={`project-details-panel exhibit-panel${
+                activeProject.mediaLayout === 'mobile' ? ' is-mobile-media' : ''
+              }`}
               onClick={(e) => e.stopPropagation()}
             >
-              <button
-                className="project-details-close"
-                onClick={() => setActiveProject(null)}
-                aria-label="Close wall text"
-              >
-                ×
-              </button>
-              <div className="project-details-content-grid">
-                <div className="project-details-media project-details-media-carousel">
-                  <ProjectMediaCarousel
-                    key={`modal-${activeProject.title}`}
-                    images={getProjectImages(activeProject)}
-                    title={activeProject.title}
-                    showThumbs
-                    mediaLayout={activeProject.mediaLayout || 'landscape'}
-                  />
-                </div>
-                <div className="project-details-info">
-                  <span className="project-details-tag">Wall text</span>
-                  <h2 id="case-study-title">{activeProject.title}</h2>
-                  <p className="project-details-subtitle">{activeProject.subtitle}</p>
+              <header className="project-details-toolbar">
+                <span className="project-details-tag">Wall text</span>
+                <button
+                  className="project-details-close"
+                  onClick={() => setActiveProject(null)}
+                  aria-label="Close wall text"
+                >
+                  ×
+                </button>
+              </header>
 
-                  <dl className="plaque-facts plaque-facts-modal">
-                    {activeProject.wing && (
-                      <div>
-                        <dt>Wing</dt>
-                        <dd>{activeProject.wing}</dd>
-                      </div>
-                    )}
-                    <div>
-                      <dt>Medium</dt>
-                      <dd>{activeProject.tech}</dd>
-                    </div>
-                    <div>
-                      <dt>Role</dt>
-                      <dd>{activeProject.role}</dd>
-                    </div>
-                    {activeProject.year && (
-                      <div>
-                        <dt>Year</dt>
-                        <dd>{activeProject.year}</dd>
-                      </div>
-                    )}
-                  </dl>
+              <div className="project-details-scroll">
+                <div className="project-details-content-grid">
+                  <div className="project-details-media project-details-media-carousel">
+                    <ProjectMediaCarousel
+                      key={`modal-${activeProject.title}`}
+                      images={getProjectImages(activeProject)}
+                      title={activeProject.title}
+                      showThumbs
+                      mediaLayout={activeProject.mediaLayout || 'landscape'}
+                    />
+                  </div>
+                  <div className="project-details-info">
+                    <h2 id="case-study-title">{activeProject.title}</h2>
+                    <p className="project-details-subtitle">{activeProject.subtitle}</p>
 
-                  {activeProject.metrics?.length > 0 && (
-                    <div className="case-study-metrics">
-                      {activeProject.metrics.map((metric) => (
-                        <div key={metric.label} className="case-study-metric">
-                          <strong>{metric.value}</strong>
-                          <span>{metric.label}</span>
+                    <dl className="plaque-facts plaque-facts-modal">
+                      {activeProject.wing && (
+                        <div>
+                          <dt>Wing</dt>
+                          <dd>{activeProject.wing}</dd>
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      )}
+                      <div>
+                        <dt>Medium</dt>
+                        <dd>{activeProject.tech}</dd>
+                      </div>
+                      <div>
+                        <dt>Role</dt>
+                        <dd>{activeProject.role}</dd>
+                      </div>
+                      {activeProject.year && (
+                        <div>
+                          <dt>Year</dt>
+                          <dd>{activeProject.year}</dd>
+                        </div>
+                      )}
+                    </dl>
 
-                  {activeProject.problem && (
-                    <div className="case-study-block">
-                      <h4>Problem</h4>
-                      <p>{activeProject.problem}</p>
-                    </div>
-                  )}
-
-                  {activeProject.impact && (
-                    <div className="case-study-block">
-                      <h4>Outcome</h4>
-                      <p>{activeProject.impact}</p>
-                    </div>
-                  )}
-
-                  <p className="project-details-desc">{activeProject.description}</p>
-
-                  <div className="architecture-schematic" aria-label="Architecture mediums">
-                    <span className="schematic-label">Schematic</span>
-                    <div className="schematic-flow">
-                      {activeProject.tech.split(',').map((medium, i, arr) => {
-                        const label = medium.trim()
-                        return (
-                          <span key={label} className="schematic-node-wrap">
-                            <span className="schematic-node">{label}</span>
-                            {i < arr.length - 1 && (
-                              <span className="schematic-arrow" aria-hidden>
-                                →
-                              </span>
-                            )}
-                          </span>
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="project-details-highlights">
-                    <h4>Architecture notes</h4>
-                    <ul className="project-details-bullets">
-                      {activeProject.details?.map((bullet) => (
-                        <li key={bullet}>{bullet}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="project-details-actions">
-                    {activeProject.demoUrl && (
-                      <a
-                        href={activeProject.demoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="project-details-link"
-                      >
-                        Live artifact
-                      </a>
+                    {activeProject.metrics?.length > 0 && (
+                      <div className="case-study-metrics">
+                        {activeProject.metrics.map((metric) => (
+                          <div key={metric.label} className="case-study-metric">
+                            <strong>{metric.value}</strong>
+                            <span>{metric.label}</span>
+                          </div>
+                        ))}
+                      </div>
                     )}
-                    {activeProject.repoUrl && (
-                      <a
-                        href={activeProject.repoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="project-details-link project-details-link-secondary"
-                      >
-                        Source repository
-                      </a>
+
+                    {activeProject.problem && (
+                      <div className="case-study-block">
+                        <h4>Problem</h4>
+                        <p>{activeProject.problem}</p>
+                      </div>
                     )}
+
+                    {activeProject.impact && (
+                      <div className="case-study-block">
+                        <h4>Outcome</h4>
+                        <p>{activeProject.impact}</p>
+                      </div>
+                    )}
+
+                    <p className="project-details-desc">{activeProject.description}</p>
+
+                    <div className="architecture-schematic" aria-label="Architecture mediums">
+                      <span className="schematic-label">Schematic</span>
+                      <div className="schematic-flow">
+                        {activeProject.tech.split(',').map((medium, i, arr) => {
+                          const label = medium.trim()
+                          return (
+                            <span key={label} className="schematic-node-wrap">
+                              <span className="schematic-node">{label}</span>
+                              {i < arr.length - 1 && (
+                                <span className="schematic-arrow" aria-hidden>
+                                  →
+                                </span>
+                              )}
+                            </span>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="project-details-highlights">
+                      <h4>Architecture notes</h4>
+                      <ul className="project-details-bullets">
+                        {activeProject.details?.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="project-details-actions">
+                      {activeProject.demoUrl && (
+                        <a
+                          href={activeProject.demoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-details-link"
+                        >
+                          Live artifact
+                        </a>
+                      )}
+                      {activeProject.repoUrl && (
+                        <a
+                          href={activeProject.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="project-details-link project-details-link-secondary"
+                        >
+                          Source repository
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

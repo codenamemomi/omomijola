@@ -34,10 +34,19 @@ import kanec6 from '../assets/kanec6.png'
 import kanec7 from '../assets/kanec7.png'
 import kanec8 from '../assets/kanec8.png'
 import backendb from '../assets/backendb.png'
+import backendb1 from '../assets/backendb1.png'
+import backendb2 from '../assets/backendb2.png'
+import backendb3 from '../assets/backendb3.png'
+import backendb4 from '../assets/backendb4.png'
+
 import outbound from '../assets/outbound.png'
 import certificationPython from '../assets/certification_python.JPG'
 import hngFinalist from '../assets/hng-finalist.jpeg'
 import jobhunter from '../assets/jobhunter.png'
+import jobhunter1 from '../assets/jobhunter1.png'
+import jobhunter2 from '../assets/jobhunter2.png'
+import jobhunter3 from '../assets/jobhunter3.png'
+import jobhunter4 from '../assets/jobhunter4.png'
 import konasal from '../assets/konasal.png'
 import konasal1 from '../assets/konasal1.png'
 import konasal2 from '../assets/konasal2.png'
@@ -264,7 +273,7 @@ export const projectItems = [
     subtitle: 'API Performance Benchmarking Platform',
     tech: 'FastAPI, httpx, React Native (Expo), Async Processing',
     image: backendb,
-    images: [backendb],
+    images: [backendb, backendb1, backendb2, backendb3, backendb4],
     demoUrl: 'https://backend-battle.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/Backend_Battle',
     role: 'Backend / API Engineer',
@@ -293,7 +302,7 @@ export const projectItems = [
     subtitle: 'Personal Job-Hunting & Auto-Apply Platform',
     tech: 'FastAPI, SQLAlchemy, React 18 + Vite, Celery, PostgreSQL/Supabase',
     image: jobhunter,
-    images: [jobhunter],
+    images: [jobhunter, jobhunter1, jobhunter2, jobhunter3, jobhunter4],
     demoUrl: 'https://jobhunter-seven-mu.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/jobhunter',
     role: 'Full-Stack Engineer',
