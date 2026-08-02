@@ -13,14 +13,38 @@ import {
   SiNextdotjs,
 } from 'react-icons/si'
 import { FaAws, FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
+import fuds from '../assets/fuds1.png'
+import fuds2 from '../assets/fuds2.png'
+import fuds3 from '../assets/fuds3.png'
 import reefond from '../assets/reefond.png'
+import reefond1 from '../assets/reefond1.png'
+import reefond2 from '../assets/reefond2.png'
+import reefond3 from '../assets/reefond3.png'
+import reefond4 from '../assets/reefond4.png'
+import reefond5 from '../assets/reefond5.png'
+import reefond6 from '../assets/reefond6.png'
+import reefond7 from '../assets/reefond7.png'
 import kanec from '../assets/kanec.png'
+import kanec1 from '../assets/kanec1.png'
+import kanec2 from '../assets/kanec2.png'
+import kanec3 from '../assets/kanec3.png'
+import kanec4 from '../assets/kanec4.png'
+import kanec5 from '../assets/kanec5.png'
+import kanec6 from '../assets/kanec6.png'
+import kanec7 from '../assets/kanec7.png'
+import kanec8 from '../assets/kanec8.png'
 import backendb from '../assets/backendb.png'
 import outbound from '../assets/outbound.png'
 import certificationPython from '../assets/certification_python.JPG'
 import hngFinalist from '../assets/hng-finalist.jpeg'
 import jobhunter from '../assets/jobhunter.png'
 import konasal from '../assets/konasal.png'
+import konasal1 from '../assets/konasal1.png'
+import konasal2 from '../assets/konasal2.png'
+import konasal3 from '../assets/konasal3.png'
+import konasal4 from '../assets/konasal4.png'
+import konasal5 from '../assets/konasal5.png'
+import konasal6 from '../assets/konasal6.png'
 
 export const navItems = [
   { id: 'hero', label: 'Lobby' },
@@ -136,12 +160,19 @@ export const experienceItems = [
   },
 ]
 
+/**
+ * Projects support multi-image galleries via `images: [img1, img2, ...]`.
+ * Keep `image` as the primary/cover (optional if `images` is set).
+ * Add screenshots under src/assets/ and import them above.
+ */
 export const projectItems = [
   {
     title: 'Ree-fond',
     subtitle: 'Regulatory Compliance Workflow System',
     tech: 'FastAPI, PostgreSQL, Docker, JWT, REST APIs',
     image: reefond,
+    images: [reefond, reefond1, reefond2, reefond3, reefond4, reefond5, reefond6, reefond7],
+    mediaLayout: 'landscape',
     demoUrl: 'https://ree-fonddemo.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/ree-fond',
     role: 'Backend Engineer',
@@ -166,10 +197,43 @@ export const projectItems = [
     ],
   },
   {
+    title: 'FUDS',
+    subtitle: 'Multi-Vendor Food Delivery & Grocery Subscription Platform',
+    tech: 'FastAPI, PostgreSQL, SQLAlchemy, Redis, Celery, Docker, Paystack',
+    image: fuds,
+    images: [fuds, fuds2, fuds3],
+    // Portrait app screenshots — render in phone frame instead of landscape crop
+    mediaLayout: 'mobile',
+    demoUrl: '',
+    repoUrl: 'https://github.com/codenamemomi/fuds_backend',
+    role: 'Backend Engineer',
+    year: '2025',
+    wing: 'Commerce & payments',
+    problem:
+      'Lagos vendors and shoppers needed a single ordering platform that could handle multi-vendor checkout, split sub-orders, and real bank-grade payment confirmation without manual reconciliation.',
+    impact:
+      'Shipped an async FastAPI platform with Redis-backed cart logic, Celery-driven notifications, and a Paystack integration covering card, hosted checkout, and bank transfer with signed webhook verification.',
+    metrics: [
+      { label: 'Payments', value: 'Paystack + webhooks' },
+      { label: 'Cart', value: 'Redis-backed' },
+      { label: 'Jobs', value: 'Celery + OTP flow' },
+    ],
+    description:
+      'A multi-vendor food delivery and grocery subscription backend with modular service layers, Redis-backed cart operations, and a full Paystack payment lifecycle — paired with an Expo/React Native mobile client.',
+    details: [
+      'Architected a layered FastAPI backend (routes → services → schema → models) separating parent orders from vendor sub-orders for multi-vendor checkout.',
+      'Built a Redis-backed cart service and OTP-based registration flow, with Celery workers handling async email dispatch and background jobs.',
+      'Integrated Paystack end-to-end: card/hosted checkout, bank transfer initialization, and signature-verified webhook handling to auto-confirm order payment status.',
+      'Designed the PostgreSQL schema and Alembic migrations for vendors, products, orders, and grocery roster subscriptions, with an analytics service powering a dashboard and CSV export.',
+      'Paired the backend with an Expo Router/TypeScript mobile client (React Native 0.81) covering auth, browsing, cart, checkout, and order tracking.',
+    ],
+  },
+  {
     title: 'Konasal Training Institute',
     subtitle: 'Full-Stack Online Learning Platform',
     tech: 'FastAPI, PostgreSQL, Redis, JavaScript, Bootstrap 5, PayPal API',
     image: konasal,
+    images: [konasal,konasal1, konasal2, konasal3, konasal4, konasal5, konasal6],
     demoUrl: 'https://www.konasalti.com',
     repoUrl: 'https://github.com/codenamemomi/konasal_frontend',
     role: 'Full-Stack Engineer',
@@ -200,6 +264,7 @@ export const projectItems = [
     subtitle: 'API Performance Benchmarking Platform',
     tech: 'FastAPI, httpx, React Native (Expo), Async Processing',
     image: backendb,
+    images: [backendb],
     demoUrl: 'https://backend-battle.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/Backend_Battle',
     role: 'Backend / API Engineer',
@@ -228,6 +293,7 @@ export const projectItems = [
     subtitle: 'Personal Job-Hunting & Auto-Apply Platform',
     tech: 'FastAPI, SQLAlchemy, React 18 + Vite, Celery, PostgreSQL/Supabase',
     image: jobhunter,
+    images: [jobhunter],
     demoUrl: 'https://jobhunter-seven-mu.vercel.app',
     repoUrl: 'https://github.com/codenamemomi/jobhunter',
     role: 'Full-Stack Engineer',
@@ -258,6 +324,7 @@ export const projectItems = [
     subtitle: 'AI Call Automation Platform',
     tech: 'FastAPI, PostgreSQL, Node.js',
     image: outbound,
+    images: [outbound],
     demoUrl: 'https://outbound.ai/',
     repoUrl: 'https://github.com/codenamemomi/Outbound-AI-Backend',
     role: 'Backend Engineer',
@@ -286,6 +353,8 @@ export const projectItems = [
     subtitle: 'Blockchain Compliance Platform',
     tech: 'FastAPI, PostgreSQL, Docker, Hedera SDK',
     image: kanec,
+    images: [kanec, kanec1, kanec2, kanec3, kanec4, kanec5, kanec6, kanec7, kanec8],
+    mediaLayout: 'landscape',
     demoUrl: 'https://kanec.vercel.app/',
     repoUrl: 'https://github.com/codenamemomi/KANEC_IMPACT',
     role: 'Backend & Blockchain Engineer',

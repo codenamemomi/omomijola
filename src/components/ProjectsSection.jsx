@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
+import ProjectMediaCarousel from './ProjectMediaCarousel.jsx'
+import { getProjectImages } from '../utils/projectMedia.js'
 
 function ProjectsSection({ projectItems }) {
   const [activeProject, setActiveProject] = useState(null)
@@ -57,8 +59,8 @@ function ProjectsSection({ projectItems }) {
           <span>Collection</span>
           <h2>Gallery rooms</h2>
           <p className="section-lede">
-            One system per room. Read the problem and outcome on the plaque; open full wall text for
-            architecture depth.
+            One system per room. Browse project views, read the problem and outcome, then open full
+            wall text for architecture depth.
           </p>
         </div>
       </div>
@@ -98,15 +100,23 @@ function ProjectsSection({ projectItems }) {
                 .map((t) => t.trim())
                 .slice(0, 4)
                 .join(' · ')
+              const images = getProjectImages(project)
 
               return (
-                <article key={project.title} id={`exhibit-${roomId}`} className="gallery-room gallery-room-slim">
+                <article
+                  key={project.title}
+                  id={`exhibit-${roomId}`}
+                  className="gallery-room gallery-room-slim"
+                >
                   <div className="gallery-room-media">
-                    <div className="gallery-room-frame">
-                      {project.image && (
-                        <img src={project.image} alt={`${project.title} system preview`} />
-                      )}
-                    </div>
+                    <ProjectMediaCarousel
+                      key={project.title}
+                      images={images}
+                      title={project.title}
+                      className="gallery-room-carousel"
+                      showThumbs={images.length > 1}
+                      mediaLayout={project.mediaLayout || 'landscape'}
+                    />
                     {project.metrics?.length > 0 && (
                       <div className="gallery-vitrine">
                         {project.metrics.map((metric) => (
@@ -123,6 +133,9 @@ function ProjectsSection({ projectItems }) {
                     <div className="plaque-meta-row">
                       {project.wing && <span className="plaque-wing">{project.wing}</span>}
                       {project.year && <span className="plaque-year">{project.year}</span>}
+                      {images.length > 1 && (
+                        <span className="plaque-year">{images.length} views</span>
+                      )}
                     </div>
 
                     <h3>{project.title}</h3>
@@ -201,8 +214,14 @@ function ProjectsSection({ projectItems }) {
                 ×
               </button>
               <div className="project-details-content-grid">
-                <div className="project-details-media">
-                  <img src={activeProject.image} alt={activeProject.title} />
+                <div className="project-details-media project-details-media-carousel">
+                  <ProjectMediaCarousel
+                    key={`modal-${activeProject.title}`}
+                    images={getProjectImages(activeProject)}
+                    title={activeProject.title}
+                    showThumbs
+                    mediaLayout={activeProject.mediaLayout || 'landscape'}
+                  />
                 </div>
                 <div className="project-details-info">
                   <span className="project-details-tag">Wall text</span>
