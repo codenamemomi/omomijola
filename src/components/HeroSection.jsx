@@ -14,7 +14,7 @@ function HeroSection({ onNavigate, onContactClick }) {
 
         <div className="hero-title-wrap lobby-title">
           <h1>Omomijolaoluwa</h1>
-          <p className="hero-role-line">Backend &amp; Infrastructure Engineer</p>
+          <p className="hero-role-line">FastAPI · RestAPI · backends · payments · auth · deploy</p>
         </div>
 
         <p className="hero-mission">{siteConfig.mission}</p>

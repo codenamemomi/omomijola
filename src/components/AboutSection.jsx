@@ -10,14 +10,14 @@ function AboutSection({ onContactClick }) {
       <div className="section-header museum-header">
         <span>About</span>
         <h2>Curatorial note</h2>
-        <p className="section-lede">{siteConfig.mission}</p>
       </div>
       <div className="about-grid">
         <div className="about-copy">
           <p className="about-lead">
-            I build backend systems that serve real users while keeping infrastructure and deployment
-            simple, scalable, and maintainable. The focus is API-first architecture, reliable data
-            models, and production-ready automation work that stays correct under load and audit.
+            API backend engineer
+            <br />
+            I build production APIs with auth, payments, and deploy — so your product can charge users without a fragile backend.
+
           </p>
 
           <div className="about-pillars">
@@ -26,10 +26,9 @@ function AboutSection({ onContactClick }) {
                 <FaServer />
               </div>
               <div className="pillar-info">
-                <h3>Scalable API design</h3>
+                <h3>API</h3>
                 <p>
-                  RESTful APIs with FastAPI &amp; Django, strict validation, and clear domain
-                  boundaries.
+                  FastAPI, RestAPI, Pydantic, JWT/RBAC, clear modules &amp; OpenAPI docs so clients can integrate without hand-holding.
                 </p>
               </div>
             </div>
@@ -39,10 +38,9 @@ function AboutSection({ onContactClick }) {
                 <FaDatabase />
               </div>
               <div className="pillar-info">
-                <h3>Data &amp; performance</h3>
+                <h3>Data &amp; speed</h3>
                 <p>
-                  PostgreSQL schemas, query tuning, and async caching with Redis so latency stays
-                  honest.
+                  Postgres schema, query work, Redis, Celery
                 </p>
               </div>
             </div>
@@ -52,10 +50,9 @@ function AboutSection({ onContactClick }) {
                 <FaTerminal />
               </div>
               <div className="pillar-info">
-                <h3>Deployable infrastructure</h3>
+                <h3>Ship it</h3>
                 <p>
-                  Dockerized runtimes, NGINX reverse proxies, and CI/CD that remove manual release
-                  risk.
+                  Docker, NGINX, GitHub Actions, Render/Vercel/AWS
                 </p>
               </div>
             </div>

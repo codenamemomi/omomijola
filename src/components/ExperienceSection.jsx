@@ -2,7 +2,7 @@ function ExperienceSection({ experienceItems }) {
   return (
     <section id="experience" className="section">
       <div className="section-header museum-header">
-        <span>Institutional record</span>
+        <span>Experience</span>
         <h2>Career chronology</h2>
         <p className="section-lede">
           Roles and commissions where backend ownership, performance, and infrastructure were the

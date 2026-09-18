@@ -10,7 +10,7 @@ function Footer({ onContactClick, onNavigate }) {
       <div className="footer-inner">
         <div className="footer-brand">
           <span className="footer-availability">{siteConfig.availability}</span>
-          <h2>Plan your visit</h2>
+          <h2>Need a FastAPI backend that can take payment?</h2>
           <p>
             Commission backend systems, APIs, and infrastructure for products that need to ship and
             stay correct. Based in {location} · open to remote.

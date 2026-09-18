@@ -56,12 +56,12 @@ import konasal5 from '../assets/konasal5.png'
 import konasal6 from '../assets/konasal6.png'
 
 export const navItems = [
-  { id: 'hero', label: 'Lobby' },
+  { id: 'hero', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'services', label: 'Services' },
-  { id: 'experience', label: 'Record' },
-  { id: 'projects', label: 'Collection' },
-  { id: 'skills', label: 'Materials' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'projects' },
+  { id: 'skills', label: 'skills' },
 ]
 
 export const siteConfig = {
@@ -72,7 +72,7 @@ export const siteConfig = {
   // When null, "Book a call" opens the contact form instead.
   bookingUrl: null,
   mission:
-    'I design backend systems for products that need reliable APIs, honest data, and deployable infrastructure, especially commerce logistics, compliance, and AI-assisted workflows.',
+    'I build production APIs with auth, payments, and deploy, so your product can charge users without a fragile backend.',
 }
 
 /** Lobby proof strip — swap values as you get stronger numbers */
@@ -84,32 +84,25 @@ export const heroMetrics = [
 
 export const services = [
   {
-    title: 'Backend API development',
+    title: 'API foundation',
     description:
-      'Design and ship FastAPI/Django APIs with auth, validation, and clear domain boundaries, ready for real clients, not demos.',
-    bestFor: 'Startups and products that need a solid API layer',
-    tags: ['FastAPI', 'Django', 'JWT', 'REST'],
+      'Schema, FastAPI, JWT/RBAC, migrations, Docker, one deploy.',
+    bestFor: 'new product, no real API yet.',
+    tags: ['~1–2 weeks for a thin slice.'],
   },
   {
-    title: 'Data & performance',
+    title: 'Payments backend',
     description:
-      'PostgreSQL modeling, query tuning, Redis caching, and async workers so latency stays honest under load.',
-    bestFor: 'Apps feeling slow, inconsistent, or hard to scale',
-    tags: ['PostgreSQL', 'Redis', 'Celery', 'Profiling'],
+      'Checkout + webhooks (Paystack / PayPal / Stripe), order/subscription state, idempotency, failure handling.',
+    bestFor: 'you already take or want to take money.',
+    tags: ['FUDS + Konasal'],
   },
   {
-    title: 'Deployable infrastructure',
+    title: 'Production harden',
     description:
-      'Docker, NGINX, CI/CD, and cloud wiring so releases are repeatable and production stops being manual.',
-    bestFor: 'Teams shipping by hand or fighting fragile deploys',
-    tags: ['Docker', 'NGINX', 'GitHub Actions', 'AWS'],
-  },
-  {
-    title: 'AI & realtime backends',
-    description:
-      'Session orchestration, webhooks, streaming, and billing-safe state machines for AI agents and call flows.',
-    bestFor: 'AI products with concurrency, sessions, or payments risk',
-    tags: ['Webhooks', 'Streaming', 'State machines', 'Stripe'],
+      'Slow queries, indexes, Redis, Celery, CI, basic rate limits.',
+    bestFor: 'it works but it is slow or scary to deploy.',
+    tags: ['Konasal 6s → 1.4s.'],
   },
 ]
 

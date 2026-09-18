@@ -57,7 +57,7 @@ function ProjectsSection({ projectItems }) {
       <div className="gallery-intro">
         <div className="section-header museum-header">
           <span>Collection</span>
-          <h2>Gallery rooms</h2>
+          <h2>Projects</h2>
           <p className="section-lede">
             One system per room. Browse project views, read the problem and outcome, then open full
             wall text for architecture depth.
