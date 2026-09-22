@@ -9,7 +9,7 @@ function AboutSection({ onContactClick }) {
     <section id="about" className="section card-section">
       <div className="section-header museum-header">
         <span>About</span>
-        <h2>Curatorial note</h2>
+        <h2>note</h2>
       </div>
       <div className="about-grid">
         <div className="about-copy">
@@ -61,7 +61,7 @@ function AboutSection({ onContactClick }) {
 
         <div className="contact-card system-status-card museum-status-card">
           <div className="status-header">
-            <span className="status-text">On view · Available</span>
+            <span className="status-text">Available</span>
           </div>
           <div className="status-details">
             <div className="status-row">
@@ -69,7 +69,7 @@ function AboutSection({ onContactClick }) {
               <span className="value">{location} · Remote</span>
             </div>
             <div className="status-row">
-              <span className="label">Commission</span>
+              <span className="label">Open to</span>
               <span className="value">Freelance · Contract · Full-time</span>
             </div>
             <div className="status-row">

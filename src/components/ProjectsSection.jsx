@@ -6,19 +6,22 @@ import { getProjectImages } from '../utils/projectMedia.js'
 function ProjectsSection({ projectItems }) {
   const [activeProject, setActiveProject] = useState(null)
   const [activeWing, setActiveWing] = useState('All')
+  const [showMoreWorks, setShowMoreWorks] = useState(false)
+
+  const visibleProjectItems = useMemo(() => projectItems.slice(0, 3), [projectItems])
 
   const wings = useMemo(() => {
     const unique = []
-    projectItems.forEach((item) => {
+    visibleProjectItems.forEach((item) => {
       if (item.wing && !unique.includes(item.wing)) unique.push(item.wing)
     })
     return ['All', ...unique]
-  }, [projectItems])
+  }, [visibleProjectItems])
 
   const filteredProjects = useMemo(() => {
-    if (activeWing === 'All') return projectItems
-    return projectItems.filter((item) => item.wing === activeWing)
-  }, [projectItems, activeWing])
+    if (activeWing === 'All') return visibleProjectItems
+    return visibleProjectItems.filter((item) => item.wing === activeWing)
+  }, [visibleProjectItems, activeWing])
 
   const roomGroups = useMemo(() => {
     if (activeWing !== 'All') {
@@ -27,7 +30,7 @@ function ProjectsSection({ projectItems }) {
 
     const groups = []
     const wingOrder = []
-    projectItems.forEach((project) => {
+    visibleProjectItems.forEach((project) => {
       const wing = project.wing || 'Collection'
       if (!wingOrder.includes(wing)) {
         wingOrder.push(wing)
@@ -36,13 +39,16 @@ function ProjectsSection({ projectItems }) {
       groups.find((g) => g.wing === wing).items.push(project)
     })
     return groups
-  }, [projectItems, filteredProjects, activeWing])
+  }, [visibleProjectItems, filteredProjects, activeWing])
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') setActiveProject(null)
+      if (event.key === 'Escape') {
+        setActiveProject(null)
+        setShowMoreWorks(false)
+      }
     }
-    if (activeProject) {
+    if (activeProject || showMoreWorks) {
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', handleKeyDown)
     }
@@ -50,7 +56,7 @@ function ProjectsSection({ projectItems }) {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [activeProject])
+  }, [activeProject, showMoreWorks])
 
   return (
     <section id="projects" className="section gallery-section">
@@ -162,7 +168,7 @@ function ProjectsSection({ projectItems }) {
                         className="project-card-link"
                         onClick={() => setActiveProject(project)}
                       >
-                        Full wall text
+                        Case study
                       </button>
                       {project.demoUrl && (
                         <a
@@ -171,7 +177,7 @@ function ProjectsSection({ projectItems }) {
                           rel="noreferrer"
                           className="project-card-link project-card-link-secondary"
                         >
-                          Live artifact
+                          Live
                         </a>
                       )}
                       {project.repoUrl && (
@@ -181,7 +187,7 @@ function ProjectsSection({ projectItems }) {
                           rel="noreferrer"
                           className="project-card-link project-card-link-secondary"
                         >
-                          Source
+                          Code
                         </a>
                       )}
                     </div>
@@ -192,6 +198,86 @@ function ProjectsSection({ projectItems }) {
           </div>
         ))}
       </div>
+
+      {projectItems.length > 3 && (
+        <div className="more-works">
+          <span className="more-works-label">More Works</span>
+          <p>Explore the rest of the collection.</p>
+          <button
+            type="button"
+            className="project-card-link"
+            onClick={() => {
+              setShowMoreWorks(true)
+            }}
+          >
+            View all projects
+          </button>
+        </div>
+      )}
+
+      {showMoreWorks &&
+        createPortal(
+          <div
+            className="project-details-modal more-works-modal"
+            onClick={() => setShowMoreWorks(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="More works"
+          >
+            <div className="project-details-panel more-works-panel" onClick={(e) => e.stopPropagation()}>
+              <header className="project-details-toolbar">
+                <button
+                  className="project-details-close"
+                  onClick={() => setShowMoreWorks(false)}
+                  aria-label="Close more works"
+                >
+                  ×
+                </button>
+              </header>
+
+              <div className="more-works-scroll">
+                <div className="more-works-grid">
+                    {projectItems.map((project) => {
+                      const images = getProjectImages(project)
+                      return (
+                        <article
+                          key={project.title}
+                          className="more-works-card"
+                        >
+                          <ProjectMediaCarousel
+                            images={images}
+                            title={project.title}
+                            className="more-works-carousel"
+                            showThumbs={images.length > 1}
+                            mediaLayout={project.mediaLayout || 'landscape'}
+                          />
+                          <div className="more-works-card-body">
+                            <div className="plaque-meta-row">
+                              {project.wing && <span className="plaque-wing">{project.wing}</span>}
+                              {project.year && <span className="plaque-year">{project.year}</span>}
+                            </div>
+                            <h3>{project.title}</h3>
+                            <p className="exhibit-subtitle">{project.subtitle}</p>
+                            <button
+                              type="button"
+                              className="project-card-link"
+                              onClick={() => {
+                                setShowMoreWorks(false)
+                                setActiveProject(project)
+                              }}
+                            >
+                              Full wall text
+                            </button>
+                          </div>
+                        </article>
+                      )
+                    })}
+                </div>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
 
       {activeProject &&
         createPortal(

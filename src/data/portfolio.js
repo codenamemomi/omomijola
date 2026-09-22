@@ -65,7 +65,7 @@ export const navItems = [
 ]
 
 export const siteConfig = {
-  canonicalUrl: 'https://omomi.vercel.app',
+  canonicalUrl: 'https://www.omomi.me',
   availability: 'Open for commission · freelance, contract & full-time',
   resumeUrl: '/resume.pdf',
   // Set to your Cal.com / Calendly URL to enable direct booking (e.g. 'https://cal.com/you/intro')
@@ -78,7 +78,6 @@ export const siteConfig = {
 /** Lobby proof strip — swap values as you get stronger numbers */
 export const heroMetrics = [
   { value: '6+', label: 'Systems shipped' },
-  { value: '6s → 1.4s', label: 'Load-time win' },
   { value: '100+', label: 'Users served' },
 ]
 
@@ -109,13 +108,13 @@ export const services = [
 export const contactDetails = {
   location: 'Nigeria',
   phone: '+234 901 112 3434',
-  email: 'akinrogundej@gmail.com',
+  email: 'hello@omomi.me',
 }
 
 export const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/codenamemomi', icon: FaGithub },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/omomijolaoluwa123', icon: FaLinkedin },
-  { label: 'Email', href: 'mailto:akinrogundej@gmail.com', icon: FaEnvelope },
+  { label: 'Email', href: 'mailto:hello@omomi.me', icon: FaEnvelope },
 ]
 
 export const experienceItems = [

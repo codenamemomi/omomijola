@@ -55,7 +55,7 @@ function ServicesSection({ services = [], onContactClick, onNavigate }) {
               className="footer-cta-secondary"
               onClick={() => onNavigate('projects')}
             >
-              See collection
+              See live work
             </button>
           )}
         </div>
