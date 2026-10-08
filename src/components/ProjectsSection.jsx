@@ -3,10 +3,9 @@ import { createPortal } from 'react-dom'
 import ProjectMediaCarousel from './ProjectMediaCarousel.jsx'
 import { getProjectImages } from '../utils/projectMedia.js'
 
-function ProjectsSection({ projectItems }) {
+function ProjectsSection({ projectItems, onViewAll }) {
   const [activeProject, setActiveProject] = useState(null)
   const [activeWing, setActiveWing] = useState('All')
-  const [showMoreWorks, setShowMoreWorks] = useState(false)
 
   const visibleProjectItems = useMemo(() => projectItems.slice(0, 3), [projectItems])
 
@@ -45,10 +44,9 @@ function ProjectsSection({ projectItems }) {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setActiveProject(null)
-        setShowMoreWorks(false)
       }
     }
-    if (activeProject || showMoreWorks) {
+    if (activeProject) {
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', handleKeyDown)
     }
@@ -56,7 +54,7 @@ function ProjectsSection({ projectItems }) {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [activeProject, showMoreWorks])
+  }, [activeProject])
 
   return (
     <section id="projects" className="section gallery-section">
@@ -206,78 +204,13 @@ function ProjectsSection({ projectItems }) {
           <button
             type="button"
             className="project-card-link"
-            onClick={() => {
-              setShowMoreWorks(true)
-            }}
+            onClick={onViewAll}
           >
-            View all projects
+            View All Projects
           </button>
         </div>
       )}
 
-      {showMoreWorks &&
-        createPortal(
-          <div
-            className="project-details-modal more-works-modal"
-            onClick={() => setShowMoreWorks(false)}
-            role="dialog"
-            aria-modal="true"
-            aria-label="More works"
-          >
-            <div className="project-details-panel more-works-panel" onClick={(e) => e.stopPropagation()}>
-              <header className="project-details-toolbar">
-                <button
-                  className="project-details-close"
-                  onClick={() => setShowMoreWorks(false)}
-                  aria-label="Close more works"
-                >
-                  ×
-                </button>
-              </header>
-
-              <div className="more-works-scroll">
-                <div className="more-works-grid">
-                    {projectItems.map((project) => {
-                      const images = getProjectImages(project)
-                      return (
-                        <article
-                          key={project.title}
-                          className="more-works-card"
-                        >
-                          <ProjectMediaCarousel
-                            images={images}
-                            title={project.title}
-                            className="more-works-carousel"
-                            showThumbs={images.length > 1}
-                            mediaLayout={project.mediaLayout || 'landscape'}
-                          />
-                          <div className="more-works-card-body">
-                            <div className="plaque-meta-row">
-                              {project.wing && <span className="plaque-wing">{project.wing}</span>}
-                              {project.year && <span className="plaque-year">{project.year}</span>}
-                            </div>
-                            <h3>{project.title}</h3>
-                            <p className="exhibit-subtitle">{project.subtitle}</p>
-                            <button
-                              type="button"
-                              className="project-card-link"
-                              onClick={() => {
-                                setShowMoreWorks(false)
-                                setActiveProject(project)
-                              }}
-                            >
-                              Full wall text
-                            </button>
-                          </div>
-                        </article>
-                      )
-                    })}
-                </div>
-              </div>
-            </div>
-          </div>,
-          document.body,
-        )}
 
       {activeProject &&
         createPortal(

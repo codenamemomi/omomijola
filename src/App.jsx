@@ -19,10 +19,30 @@ import {
 } from './data/portfolio.js'
 import ContactModal from './components/ContactModal.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
+import ProjectsPage from './components/ProjectsPage.jsx'
 
 function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
   const [activeSection, setActiveSection] = useState('hero')
   const [isContactOpen, setIsContactOpen] = useState(false)
+
+  useEffect(() => {
+    const handlePopState = () => setCurrentPath(window.location.pathname)
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  const navigateToProjects = () => {
+    window.history.pushState({}, '', '/projects')
+    setCurrentPath('/projects')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const navigateHome = () => {
+    window.history.pushState({}, '', '/')
+    setCurrentPath('/')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     const navIds = new Set(navItems.map((item) => item.id))
@@ -67,6 +87,23 @@ function App() {
 
   const openContact = () => setIsContactOpen(true)
 
+  if (currentPath === '/projects') {
+    return (
+      <ProjectsPage
+        projectItems={projectItems}
+        navItems={navItems}
+        onNavigate={(id) => {
+          if (id === 'hero') {
+            navigateHome()
+            return
+          }
+          window.location.href = `/#${id}`
+        }}
+        onBack={navigateHome}
+      />
+    )
+  }
+
   return (
     <div className="page museum-page">
       <div className="page-frame" />
@@ -84,7 +121,7 @@ function App() {
         </div>
 
         <div className="gallery-bleed">
-          <ProjectsSection projectItems={projectItems} />
+          <ProjectsSection projectItems={projectItems} onViewAll={navigateToProjects} />
         </div>
 
         <div className="content content-lower">
