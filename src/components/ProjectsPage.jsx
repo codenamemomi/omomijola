@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import NavBar from './NavBar.jsx'
 import Footer from './Footer.jsx'
 import ContactModal from './ContactModal.jsx'
-import ProjectOrbitCarousel from './ProjectOrbitCarousel.jsx'
 import ProjectShowcaseCarousel from './ProjectShowcaseCarousel.jsx'
 
 function ProjectsPage({ projectItems, navItems, onNavigate, onBack }) {
@@ -11,10 +10,9 @@ function ProjectsPage({ projectItems, navItems, onNavigate, onBack }) {
   const [isContactOpen, setIsContactOpen] = useState(false)
   const projectFocusRef = useRef(null)
 
-  const openProject = (project) => {
-    setActiveProject(project)
-    setFocusTarget(null)
-  }
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [])
 
   const openProjectFromIndex = (project) => {
     setActiveProject(project)
@@ -48,18 +46,14 @@ function ProjectsPage({ projectItems, navItems, onNavigate, onBack }) {
             <span>Full collection</span>
             <h1>Projects</h1>
             <p className="section-lede">
-              A rotating index of systems built across commerce, compliance, realtime infrastructure,
-              and developer tooling. Select a card to bring its architecture into focus.
+              A complete index of systems built across commerce, compliance, realtime infrastructure,
+              and developer tooling. Select a project to bring its architecture into focus.
             </p>
           </div>
           <div className="projects-page-count">
             <strong>{projectItems.length}</strong>
             <span>systems in the collection</span>
           </div>
-        </section>
-
-        <section className="projects-orbit-section" aria-label="Project collection">
-          <ProjectOrbitCarousel projects={projectItems} onSelect={openProject} />
         </section>
 
         {activeProject && (

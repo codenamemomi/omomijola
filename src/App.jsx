@@ -35,7 +35,7 @@ function App() {
   const navigateToProjects = () => {
     window.history.pushState({}, '', '/projects')
     setCurrentPath('/projects')
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: 'auto' })
   }
 
   const navigateHome = () => {
